@@ -1,22 +1,37 @@
-/* ─── ARTEVO Hero Section ──────────────────────────────────── */
+/* ─── ARTEVO Full-Bleed Hero Section ───────────────────────────── */
 
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: calc(100vh - var(--nav-height));
   display: flex;
   align-items: center;
-  padding-top: var(--nav-height);
   overflow: hidden;
   background: var(--artevo-cream);
 }
 
-.bg {
+.bgImageWrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.heroImg {
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Subtle gradient to ensure text is readable */
+.bgOverlay {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse 70% 60% at 80% 50%, rgba(0,87,217,0.04) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 40% at 10% 80%, rgba(255,231,107,0.12) 0%, transparent 60%),
-    var(--artevo-cream);
+  background: linear-gradient(
+    to right,
+    transparent 40%,
+    rgba(255, 248, 236, 0.3) 100%
+  );
   pointer-events: none;
 }
 
@@ -24,105 +39,116 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: center;
-  max-width: 1280px;
+  grid-template-columns: 1.2fr 1fr;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 60px 24px;
+  padding: 60px 40px;
+  width: 100%;
+  height: 100%;
+}
+
+.spacer {
+  /* Empty column on left for desktop */
+}
+
+/* ─── Content Box (Right) ──────────────────────────── */
+.contentBox {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px;
+  border-radius: var(--radius-xl);
+  overflow: visible;
+  margin-left: auto;
+  max-width: 620px;
   width: 100%;
 }
 
-/* ─── Content (left) ──────────────────────────── */
-.content {
+.contentBlur {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 248, 236, 0.75); /* Cream with opacity */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  z-index: 0;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.1);
+}
+
+.contentInner {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  align-items: flex-start;
 }
 
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--artevo-cobalt-pale);
-  color: var(--artevo-cobalt);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 6px 14px;
-  border-radius: var(--radius-full);
-  width: fit-content;
-  border: 1px solid rgba(0,87,217,0.15);
+.crownWrap {
+  margin-bottom: -15px;
+  margin-left: 15px;
+  animation: wiggle 3s ease-in-out infinite;
 }
 
-.badgeDot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--artevo-cobalt);
-  animation: pulse 2s infinite;
+.headlineWrapper {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.sparkleWrap {
+  position: absolute;
+  top: 50%;
+  left: -40px;
+  transform: translateY(-50%);
+  animation: pulse 2.5s infinite alternate;
 }
 
 .headline {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
   line-height: 1;
-}
-
-.headlineLine1 {
-  font-size: clamp(52px, 7vw, 88px);
-  font-weight: 700;
-  color: var(--artevo-ink);
-  display: block;
-}
-
-.headlineLine2 {
-  font-size: clamp(52px, 7vw, 88px);
-  font-weight: 700;
   color: var(--artevo-cobalt);
+}
+
+.headlineLine {
+  font-size: clamp(64px, 7vw, 96px);
+  font-weight: 700;
+  text-transform: uppercase;
   display: block;
-  position: relative;
-}
-
-/* Yellow underline on "YOUR VIBE." */
-.headlineLine2::after {
-  content: '';
-  position: absolute;
-  bottom: 4px;
-  left: 0;
-  width: 85%;
-  height: 8px;
-  background: var(--artevo-yellow);
-  border-radius: 4px;
-  z-index: -1;
-  transform: rotate(-1deg);
-}
-
-.doodleUnderline {
-  margin-top: -8px;
-  margin-left: 8px;
+  letter-spacing: -0.02em;
 }
 
 .sub {
-  font-size: clamp(16px, 1.8vw, 19px);
-  color: var(--artevo-ink-light);
-  line-height: 1.6;
-  max-width: 420px;
-  font-weight: 400;
+  font-size: clamp(18px, 1.8vw, 22px);
+  color: var(--artevo-ink);
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 36px;
+  max-width: 400px;
 }
 
-.actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
+/* ─── CTA Button ──────────────────────────────────────── */
 .primaryCta {
-  font-size: 13px;
-  letter-spacing: 0.08em;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--artevo-yellow);
+  color: var(--artevo-cobalt);
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 16px 36px;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+  box-shadow: 0 8px 24px rgba(255, 231, 107, 0.3);
+  text-decoration: none;
+}
+
+.primaryCta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(255, 231, 107, 0.5);
+  background: var(--artevo-yellow-dark);
 }
 
 .ctaArrow {
@@ -132,212 +158,114 @@
   transform: translateX(4px);
 }
 
-.secondaryCta {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--artevo-ink);
-  text-decoration: underline;
-  text-decoration-color: transparent;
-  text-underline-offset: 4px;
-  transition: text-decoration-color var(--transition-fast), color var(--transition-fast);
-}
-.secondaryCta:hover {
-  color: var(--artevo-cobalt);
-  text-decoration-color: var(--artevo-cobalt);
-}
-
-.trust {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.trustItem {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--artevo-grey);
-}
-
-.trustIcon { font-size: 14px; }
-
-.trustDot {
-  width: 3px;
-  height: 3px;
-  background: var(--artevo-grey-light);
-  border-radius: 50%;
-}
-
-/* ─── Visual (right) ──────────────────────────── */
-.visual {
-  position: relative;
-  height: 580px;
-}
-
-.imageWrap {
-  position: relative;
-  height: 100%;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  box-shadow: 0 24px 80px rgba(27,27,27,0.15);
-}
-
-.heroImg {
-  object-fit: cover;
-  transition: transform var(--transition-slow);
-}
-.imageWrap:hover .heroImg {
-  transform: scale(1.03);
-}
-
-.imgOverlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    transparent 60%,
-    rgba(27,27,27,0.25) 100%
-  );
-  pointer-events: none;
-}
-
-/* Doodles */
-.doodleGroup { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
-
-.doodleTopLeft {
-  position: absolute;
-  top: -16px;
-  left: -20px;
-  animation: wiggle 3s ease-in-out infinite;
-}
-
-.doodleTopRight {
-  position: absolute;
-  top: 20px;
-  right: -12px;
-  animation: wiggle 4s ease-in-out infinite 1s;
-}
-
-.doodleBottomLeft {
-  position: absolute;
-  bottom: 40px;
-  left: -18px;
-  animation: wiggle 3.5s ease-in-out infinite 0.5s;
-}
-
-/* SVG doodle base styles */
-.doodle { display: block; }
-.doodleArrow { display: block; }
-.doodleCrown { display: block; }
-.doodleSmiley { display: block; }
-
-/* "The First Drop" badge */
+/* ─── "The First Drop" Badge ──────────────────────────── */
 .firstDropBadge {
   position: absolute;
-  top: 20px;
-  right: -8px;
+  top: -60px;
+  right: -40px;
   z-index: 3;
   background: var(--artevo-yellow);
   border-radius: 50%;
-  width: 90px;
-  height: 90px;
+  width: 120px;
+  height: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   transform: rotate(12deg);
-  box-shadow: 0 4px 20px rgba(255,231,107,0.4);
-  border: 2px solid var(--artevo-ink);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  border: 3px solid var(--artevo-cobalt);
+  transition: transform var(--transition-base);
+}
+
+.firstDropBadge:hover {
+  transform: rotate(0deg) scale(1.05);
 }
 
 .firstDropText {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--artevo-ink);
-  line-height: 1.2;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--artevo-cobalt);
+  line-height: 1.05;
+  text-align: center;
+  text-transform: uppercase;
 }
 
-.firstDropDrop {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--artevo-ink);
-  line-height: 1;
+/* ─── Animations ──────────────────────────────────────── */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25%  { transform: rotate(-8deg); }
+  75%  { transform: rotate(8deg); }
 }
 
-/* Floating product card */
-.floatCard {
-  position: absolute;
-  bottom: 24px;
-  left: -16px;
-  z-index: 3;
-  background: var(--artevo-white);
-  border-radius: var(--radius-md);
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  box-shadow: 0 8px 32px rgba(27,27,27,0.15);
-  animation: fadeUp 0.6s 0.3s both;
+@keyframes pulse {
+  0% { opacity: 0.5; transform: translateY(-50%) scale(0.9); }
+  100% { opacity: 1; transform: translateY(-50%) scale(1.1); }
 }
 
-.floatCardDot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--artevo-success);
-  flex-shrink: 0;
-  animation: pulse 2s infinite;
+/* ─── Responsive ──────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .inner { grid-template-columns: 1fr 1fr; }
 }
 
-.floatCardTitle {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--artevo-ink);
-}
-
-.floatCardSub {
-  font-size: 11px;
-  color: var(--artevo-grey);
-}
-
-/* ─── Responsive ──────────────────────────────── */
 @media (max-width: 900px) {
-  .inner {
-    grid-template-columns: 1fr;
-    gap: 32px;
-    padding: 40px 16px 60px;
+  .hero {
+    min-height: 100vh;
   }
 
-  .visual {
-    height: 420px;
-    order: -1;
+  .inner {
+    grid-template-columns: 1fr;
+    align-items: flex-end;
+    padding: 100px 16px 40px;
+  }
+  
+  .spacer {
+    display: none;
+  }
+
+  .contentBox {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 500px;
+    padding: 32px 24px;
   }
 
   .firstDropBadge {
-    top: 12px;
-    right: 8px;
+    top: -50px;
+    right: 10px;
+    width: 90px;
+    height: 90px;
   }
 
-  .floatCard {
-    bottom: 12px;
-    left: 8px;
+  .firstDropText {
+    font-size: 16px;
   }
-
-  .content { align-items: center; text-align: center; }
-  .badge   { align-self: center; }
-  .sub     { max-width: 100%; }
-  .trust   { justify-content: center; }
-  .doodleUnderline { display: none; }
-
-  .headlineLine2::after { width: 80%; }
+  
+  .sparkleWrap {
+    display: none;
+  }
 }
 
 @media (max-width: 480px) {
-  .visual { height: 300px; }
-  .actions { flex-direction: column; align-items: stretch; }
-  .primaryCta { justify-content: center; }
-  .secondaryCta { text-align: center; }
+  .hero {
+    padding-top: var(--nav-height);
+  }
+  
+  .contentBox {
+    padding: 28px 20px;
+  }
+
+  .headlineLine {
+    font-size: 48px;
+  }
+
+  .sub {
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+
+  .primaryCta {
+    width: 100%;
+    justify-content: center;
+  }
 }
