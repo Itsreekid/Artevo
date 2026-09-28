@@ -1,154 +1,135 @@
-/* ─── ARTEVO Full-Bleed Hero Section ───────────────────────────── */
+/* ─── ARTEVO Clean 2-Column Hero ────────────────────────────── */
 
 .hero {
   position: relative;
   min-height: calc(100vh - var(--nav-height));
   display: flex;
   align-items: center;
-  overflow: hidden;
   background: var(--artevo-cream);
-}
-
-.bgImageWrap {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-}
-
-.heroImg {
-  object-fit: cover;
-  object-position: center;
-}
-
-/* Subtle gradient to ensure text is readable */
-.bgOverlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to right,
-    transparent 40%,
-    rgba(255, 248, 236, 0.3) 100%
-  );
-  pointer-events: none;
+  overflow: hidden;
+  padding: 40px 0;
 }
 
 .inner {
-  position: relative;
-  z-index: 1;
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  max-width: 1400px;
+  grid-template-columns: 0.85fr 1.15fr; /* 42.5% text / 57.5% image ratio roughly */
+  gap: 64px;
+  align-items: center;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 60px 40px;
-  width: 100%;
-  height: 100%;
-}
-
-.spacer {
-  /* Empty column on left for desktop */
-}
-
-/* ─── Content Box (Right) ──────────────────────────── */
-.contentBox {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 48px;
-  border-radius: var(--radius-xl);
-  overflow: visible;
-  margin-left: auto;
-  max-width: 620px;
+  padding: 0 40px;
   width: 100%;
 }
 
-.contentBlur {
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 248, 236, 0.75); /* Cream with opacity */
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  z-index: 0;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.1);
-}
-
-.contentInner {
-  position: relative;
-  z-index: 1;
+/* ─── LEFT: CONTENT ─────────────────────────────────────────── */
+.content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  max-width: 540px;
+  animation: fadeUp 0.6s ease both;
 }
 
-.crownWrap {
-  margin-bottom: -15px;
-  margin-left: 15px;
-  animation: wiggle 3s ease-in-out infinite;
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--artevo-cobalt-pale);
+  color: var(--artevo-cobalt);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  margin-bottom: 32px;
 }
 
-.headlineWrapper {
-  position: relative;
-  margin-bottom: 24px;
-}
-
-.sparkleWrap {
-  position: absolute;
-  top: 50%;
-  left: -40px;
-  transform: translateY(-50%);
-  animation: pulse 2.5s infinite alternate;
+.badgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--artevo-cobalt);
 }
 
 .headline {
-  line-height: 1;
-  color: var(--artevo-cobalt);
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+  margin-bottom: 24px;
+  font-size: clamp(64px, 7vw, 100px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  position: relative;
 }
 
-.headlineLine {
-  font-size: clamp(64px, 7vw, 96px);
-  font-weight: 700;
-  text-transform: uppercase;
-  display: block;
-  letter-spacing: -0.02em;
+.headlineRow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.textInk {
+  color: var(--artevo-ink);
+}
+
+.textCobalt {
+  color: var(--artevo-cobalt);
+  position: relative;
+}
+
+.starWrap {
+  margin-top: -30px;
+  animation: pulse 3s infinite alternate;
+}
+
+.underlineWrap {
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  z-index: -1;
+  transform: rotate(-1deg);
 }
 
 .sub {
-  font-size: clamp(18px, 1.8vw, 22px);
+  font-size: clamp(17px, 1.6vw, 20px);
   color: var(--artevo-ink);
-  font-weight: 600;
-  line-height: 1.4;
-  margin-bottom: 36px;
-  max-width: 400px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 40px;
+  max-width: 420px;
 }
 
-/* ─── CTA Button ──────────────────────────────────────── */
+/* ─── ACTIONS & BENEFITS ────────────────────────────────────── */
+.actions {
+  margin-bottom: 24px;
+  width: 100%;
+}
+
 .primaryCta {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  background: var(--artevo-yellow);
-  color: var(--artevo-cobalt);
+  background: var(--artevo-cobalt);
+  color: var(--artevo-white);
   border: none;
   border-radius: var(--radius-full);
   padding: 16px 36px;
-  font-size: 16px;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
-  box-shadow: 0 8px 24px rgba(255, 231, 107, 0.3);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   text-decoration: none;
+  transition: transform var(--transition-fast), background var(--transition-fast);
+  width: auto;
 }
 
 .primaryCta:hover {
+  background: var(--artevo-cobalt-dark);
   transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(255, 231, 107, 0.5);
-  background: var(--artevo-yellow-dark);
 }
 
 .ctaArrow {
@@ -158,114 +139,209 @@
   transform: translateX(4px);
 }
 
-/* ─── "The First Drop" Badge ──────────────────────────── */
-.firstDropBadge {
+.benefits {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--artevo-grey);
+}
+
+.benefitDot {
+  color: var(--artevo-grey-light);
+  font-weight: 800;
+}
+
+/* ─── RIGHT: VISUAL ─────────────────────────────────────────── */
+.visual {
+  position: relative;
+  width: 100%;
+  height: 700px; /* Large editorial height */
+  max-height: 85vh;
+  animation: fadeUp 0.8s ease both 0.1s;
+}
+
+.imageWrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
+  background: var(--artevo-cream-dark);
+}
+
+.heroImg {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 6s ease-out;
+}
+
+.imageWrap:hover .heroImg {
+  transform: scale(1.02);
+}
+
+/* Product Label */
+.productLabel {
   position: absolute;
-  top: -60px;
-  right: -40px;
-  z-index: 3;
-  background: var(--artevo-yellow);
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;
+  bottom: 32px;
+  left: -24px;
+  background: var(--artevo-white);
+  padding: 16px 20px;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transform: rotate(12deg);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
-  border: 3px solid var(--artevo-cobalt);
-  transition: transform var(--transition-base);
+  gap: 2px;
 }
 
-.firstDropBadge:hover {
-  transform: rotate(0deg) scale(1.05);
+.labelEyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--artevo-yellow-dark);
+  margin-bottom: 4px;
 }
 
-.firstDropText {
-  font-size: 22px;
+.labelTitle {
+  font-size: 14px;
   font-weight: 800;
-  color: var(--artevo-cobalt);
-  line-height: 1.05;
-  text-align: center;
-  text-transform: uppercase;
+  color: var(--artevo-ink);
+  line-height: 1.1;
 }
 
-/* ─── Animations ──────────────────────────────────────── */
-@keyframes wiggle {
-  0%, 100% { transform: rotate(0deg); }
-  25%  { transform: rotate(-8deg); }
-  75%  { transform: rotate(8deg); }
+.labelSub {
+  font-size: 12px;
+  color: var(--artevo-grey);
+}
+
+/* ─── ANIMATIONS ────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes pulse {
-  0% { opacity: 0.5; transform: translateY(-50%) scale(0.9); }
-  100% { opacity: 1; transform: translateY(-50%) scale(1.1); }
+  0% { transform: scale(0.95); opacity: 0.8; }
+  100% { transform: scale(1.05); opacity: 1; }
 }
 
-/* ─── Responsive ──────────────────────────────────────── */
-@media (max-width: 1100px) {
-  .inner { grid-template-columns: 1fr 1fr; }
-}
-
-@media (max-width: 900px) {
-  .hero {
-    min-height: 100vh;
+@media (prefers-reduced-motion: reduce) {
+  .content, .visual, .heroImg, .starWrap {
+    animation: none;
+    transition: none;
   }
+}
 
+/* ─── RESPONSIVE ────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 0 32px;
+  }
+  
+  .visual {
+    height: 540px;
+  }
+  
+  .headline {
+    font-size: 64px;
+  }
+}
+
+/* TABLET / MOBILE FULL REDESIGN */
+@media (max-width: 768px) {
+  .hero {
+    padding: 0;
+    min-height: auto;
+  }
+  
   .inner {
     grid-template-columns: 1fr;
-    align-items: flex-end;
-    padding: 100px 16px 40px;
+    gap: 32px;
+    padding: 32px 16px 40px;
   }
   
-  .spacer {
-    display: none;
+  .content {
+    max-width: 100%;
+    align-items: flex-start;
+  }
+  
+  .badge {
+    margin-bottom: 20px;
+  }
+  
+  .headline {
+    font-size: 56px;
+    margin-bottom: 16px;
   }
 
-  .contentBox {
-    margin: 0 auto;
-    width: 100%;
-    max-width: 500px;
-    padding: 32px 24px;
+  .starWrap {
+    display: none; /* Cleaner mobile */
   }
-
-  .firstDropBadge {
-    top: -50px;
-    right: 10px;
-    width: 90px;
-    height: 90px;
-  }
-
-  .firstDropText {
+  
+  .sub {
     font-size: 16px;
+    margin-bottom: 32px;
   }
   
-  .sparkleWrap {
-    display: none;
+  .actions {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  .primaryCta {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .visual {
+    height: 500px;
+    max-height: 60vh;
+  }
+  
+  .imageWrap {
+    border-radius: 16px;
+  }
+  
+  .productLabel {
+    bottom: -16px;
+    left: 16px;
+    right: auto;
+    padding: 12px 16px;
   }
 }
 
-@media (max-width: 480px) {
-  .hero {
-    padding-top: var(--nav-height);
-  }
-  
-  .contentBox {
-    padding: 28px 20px;
-  }
-
-  .headlineLine {
+@media (max-width: 414px) {
+  .headline {
     font-size: 48px;
   }
-
-  .sub {
-    font-size: 16px;
-    margin-bottom: 24px;
+  
+  .visual {
+    height: 420px;
   }
-
+  
   .primaryCta {
-    width: 100%;
-    justify-content: center;
+    max-width: 100%;
+  }
+  
+  .benefits {
+    font-size: 12px;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 320px) {
+  .headline {
+    font-size: 40px;
+  }
+  
+  .visual {
+    height: 340px;
   }
 }
