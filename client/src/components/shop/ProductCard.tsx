@@ -88,7 +88,7 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
         {/* Image */}
         <div className={styles.imageWrap}>
           {isOutOfStock && (
-            <div className={styles.outOfStockBadge}>Rupture de stock</div>
+            <div className={styles.outOfStockBadge}>Out of Stock</div>
           )}
           {product.image_url ? (
             <Image
@@ -101,7 +101,7 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
             />
           ) : (
             <div className={styles.imagePlaceholder} aria-hidden="true">
-              <span className={styles.placeholderText}>NYVARA</span>
+              <span className={styles.placeholderText}>ARTEVO</span>
             </div>
           )}
 

@@ -5,26 +5,30 @@ import { ArrowRight } from 'lucide-react';
 import ProductCard from '@/components/shop/ProductCard';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { useFeaturedProducts } from '@/hooks/useProducts';
-import { useLanguage } from '@/context/LanguageContext';
-import { getTranslation } from '@/locales/dictionary';
 import styles from './FeaturedProducts.module.css';
 
 export default function FeaturedProducts() {
   const { products, loading } = useFeaturedProducts(6);
-  const { language } = useLanguage();
-  const t = (path: string) => getTranslation(language, path);
 
   return (
-    <section className={styles.section} id="featured">
+    <section className={styles.section} id="featured" aria-label="Featured Products">
       <div className={styles.inner}>
         {/* Header */}
         <div className={styles.header}>
-          <div>
-            <p className={styles.eyebrow}>{t('featured.eyebrow')}</p>
-            <h2 className={styles.headline} style={{ whiteSpace: 'pre-line' }}>{t('featured.title')}</h2>
+          <div className={styles.headerLeft}>
+            {/* Eyebrow — handwritten */}
+            <p className={`${styles.eyebrow} artevo-display`}>Meet the first piece.</p>
+            <h2 className={styles.headline}>
+              The ARTEVO Wall Rack
+              <span className={styles.headlineAccent}> —</span>
+            </h2>
+            <p className={styles.desc}>
+              Simple. Functional. Timeless. A natural wood wall rack that brings order,
+              warmth and character to your everyday spaces.
+            </p>
           </div>
-          <Link href="/shop" className={styles.viewAll}>
-            {t('featured.viewAll')} {language === 'fr' ? <ArrowRight size={16} /> : <ArrowRight size={16} style={{ transform: 'rotate(180deg)' }} />}
+          <Link href="/shop" className={styles.viewAll} id="featured-view-all">
+            View all drops <ArrowRight size={16} />
           </Link>
         </div>
 
@@ -35,12 +39,14 @@ export default function FeaturedProducts() {
           </div>
         ) : products.length === 0 ? (
           <div className={styles.emptyWrap}>
-            <p className={styles.emptyText}>{t('featured.emptyText')}</p>
+            <div className={styles.emptyIcon}>🌿</div>
+            <p className={styles.emptyTitle}>New pieces dropping soon</p>
+            <p className={styles.emptyText}>Check back — good stuff is coming.</p>
           </div>
         ) : (
           <div className={styles.grid}>
-            {products.map(product => (
-              <ProductCard key={product.id} product={product} />
+            {products.map((product, i) => (
+              <ProductCard key={product.id} product={product} priority={i < 3} />
             ))}
           </div>
         )}

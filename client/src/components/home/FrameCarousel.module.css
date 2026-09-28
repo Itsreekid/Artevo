@@ -1,119 +1,145 @@
-.section {
-  position: relative;
-  background: var(--color-cream-dark);
-  padding: 100px 0;
-  overflow: hidden;
-}
+/* ─── "Made for Real Rooms" Section ──────────────────────────── */
 
-/* ─── Watermark ─────────────────────────────────── */
-.watermark {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: var(--font-editorial);
-  font-size: clamp(80px, 16vw, 160px);
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: rgba(0,0,0,0.04);
-  white-space: nowrap;
-  pointer-events: none;
-  user-select: none;
-  z-index: 0;
-  transition: all 0.5s ease;
+.section {
+  padding: 96px 0;
+  background: var(--artevo-cream);
+  position: relative;
 }
 
 .inner {
-  position: relative; z-index: 1;
-  max-width: 1280px; margin: 0 auto; padding: 0 24px;
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 60px; align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
 }
 
-/* ─── Text ──────────────────────────────────────── */
-.textCol {}
+/* ─── Header ───────────────────────────────────── */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  text-align: center;
+}
+
 .eyebrow {
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--color-gold); margin-bottom: 16px;
-}
-.headline {
-  font-family: var(--font-editorial);
-  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-size: 32px;
   font-weight: 600;
-  letter-spacing: 0.06em;
-  line-height: 1.1;
-  color: var(--color-black);
-  margin-bottom: 20px;
-}
-.sub {
-  font-size: 13px; color: var(--color-grey);
-  letter-spacing: 0.04em; line-height: 1.8;
-  margin-bottom: 36px;
-}
-.cta {
-  display: inline-flex;
-  padding: 14px 40px;
-  background: var(--color-black);
-  color: var(--color-white);
-  border-radius: var(--radius-full);
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  transition: all var(--transition-base);
-}
-.cta:hover { background: var(--color-charcoal); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
-
-/* ─── Carousel ──────────────────────────────────── */
-.carouselCol {
-  display: flex; align-items: center; gap: 20px;
-}
-.navBtn {
-  flex-shrink: 0;
-  width: 44px; height: 44px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--color-black);
-  color: var(--color-black);
-  transition: all var(--transition-base);
-}
-.navBtn:hover { background: var(--color-black); color: var(--color-white); }
-.frameDisplay {
-  flex: 1; text-align: center;
-  animation: fadeIn 0.4s ease;
-}
-.frameSvgWrap {
-  width: 100%;
-  color: var(--color-black);
-  margin-bottom: 24px;
-  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.1));
-}
-.frameName {
-  font-family: var(--font-editorial);
-  font-size: 1.4rem; font-weight: 500;
-  letter-spacing: 0.06em;
-  color: var(--color-black); margin-bottom: 8px;
-}
-.frameDesc { font-size: 13px; color: var(--color-grey); line-height: 1.7; }
-
-/* ─── Dots ──────────────────────────────────────── */
-.dots {
-  display: flex; justify-content: center; gap: 8px;
-  margin-top: 40px; position: relative; z-index: 1;
-}
-.dot {
-  width: 8px; height: 8px;
-  border-radius: var(--radius-full);
-  background: rgba(0,0,0,0.15);
-  transition: all var(--transition-base);
-}
-.dotActive {
-  width: 28px;
-  background: var(--color-black);
+  color: var(--artevo-cobalt);
 }
 
-@keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+.headline {
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 800;
+  color: var(--artevo-ink);
+  letter-spacing: -0.02em;
+}
 
-@media (max-width: 768px) {
-  .inner { grid-template-columns: 1fr; }
-  .textCol { text-align: center; }
-  .cta { margin: 0 auto; }
+.headlineAccent {
+  color: var(--artevo-terracotta);
+  font-style: italic;
+}
+
+/* ─── Cards Grid ────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+
+.cardImg {
+  position: absolute;
+  inset: 0;
+}
+
+.cardImage {
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+.card:hover .cardImage {
+  transform: scale(1.06);
+}
+
+.cardOverlay {
+  position: absolute;
+  inset: 0;
+  transition: opacity var(--transition-base);
+}
+.card:hover .cardOverlay {
+  opacity: 0.9;
+}
+
+.cardContent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px;
+  color: var(--artevo-white);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cardEmoji {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.cardTitle {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.cardDesc {
+  font-size: 14px;
+  opacity: 0.9;
+  line-height: 1.5;
+  max-width: 200px;
+}
+
+/* ─── Bottom ────────────────────────────────────── */
+.bottom {
+  display: flex;
+  justify-content: center;
+}
+
+.bottomText {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--artevo-grey);
+  font-style: italic;
+}
+
+/* ─── Responsive ────────────────────────────────── */
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .section { padding: 64px 0; }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .card { aspect-ratio: 4/3; }
 }

@@ -2,111 +2,148 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowDown, Sparkles } from 'lucide-react';
-import { useLanguage } from '@/context/LanguageContext';
-import { getTranslation } from '@/locales/dictionary';
+import { ArrowRight } from 'lucide-react';
 import styles from './HeroSection.module.css';
 
-export default function HeroSection() {
-  const { language } = useLanguage();
-  const t = (path: string) => getTranslation(language, path);
-
+// Hand-drawn SVG doodles
+function StarDoodle() {
   return (
-    <section className={styles.hero} aria-label="Hero">
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true" className={styles.doodle}>
+      <path d="M14 2L16.5 10.5L25 8L18.5 14L25 20L16.5 17.5L14 26L11.5 17.5L3 20L9.5 14L3 8L11.5 10.5L14 2Z"
+        stroke="#FFE76B" strokeWidth="2" strokeLinejoin="round" fill="none"/>
+    </svg>
+  );
+}
 
-      {/* ── Ambient background layers ── */}
-      <div className={styles.bgBase} aria-hidden="true" />
-      <div className={styles.bgGlow1} aria-hidden="true" />
-      <div className={styles.bgGlow2} aria-hidden="true" />
-      <div className={styles.bgGrid}  aria-hidden="true" />
+function ArrowDoodle() {
+  return (
+    <svg width="60" height="30" viewBox="0 0 60 30" fill="none" aria-hidden="true" className={styles.doodleArrow}>
+      <path d="M2 20 Q15 5 35 12 Q48 17 55 10" stroke="#FFE76B" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+      <path d="M50 6 L55 10 L51 15" stroke="#FFE76B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
 
-      {/* ── Main content ── */}
+function CrownDoodle() {
+  return (
+    <svg width="36" height="28" viewBox="0 0 36 28" fill="none" aria-hidden="true" className={styles.doodleCrown}>
+      <path d="M4 22 L8 8 L18 16 L28 4 L32 18 L4 22Z" stroke="#0057D9" strokeWidth="2" strokeLinejoin="round" fill="none"/>
+      <path d="M4 22 L32 22" stroke="#0057D9" strokeWidth="2" strokeLinecap="round"/>
+      <circle cx="8" cy="8" r="2" fill="#FFE76B"/>
+      <circle cx="28" cy="4" r="2" fill="#FFE76B"/>
+      <circle cx="18" cy="16" r="2" fill="#FFE76B"/>
+    </svg>
+  );
+}
+
+function SmileyDoodle() {
+  return (
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true" className={styles.doodleSmiley}>
+      <circle cx="16" cy="16" r="13" stroke="#FF7F5A" strokeWidth="2"/>
+      <circle cx="11" cy="13" r="2" fill="#FF7F5A"/>
+      <circle cx="21" cy="13" r="2" fill="#FF7F5A"/>
+      <path d="M10 19 Q16 24 22 19" stroke="#FF7F5A" strokeWidth="2" strokeLinecap="round" fill="none"/>
+    </svg>
+  );
+}
+
+export default function HeroSection() {
+  return (
+    <section className={styles.hero} aria-label="ARTEVO Hero">
+      {/* Cream background */}
+      <div className={styles.bg} aria-hidden="true" />
+
       <div className={styles.inner}>
+        {/* Left — editorial content */}
+        <div className={styles.content}>
 
-        {/* Left — editorial text */}
-        <div className={styles.textCol}>
-
+          {/* Badge */}
           <div className={styles.badge}>
-            <Sparkles size={11} />
-            <span>{t('hero.badge')}</span>
+            <span className={styles.badgeDot} />
+            <span>THE FIRST DROP</span>
           </div>
 
+          {/* Headline — handwritten brand font */}
           <h1 className={styles.headline}>
-            <span className={styles.headlineTop}>{t('hero.title1')}</span>
-            <span className={styles.headlineAccent}>{t('hero.title2')}</span>
+            <span className={`${styles.headlineLine1} artevo-display`}>Your Wall.</span>
+            <span className={`${styles.headlineLine2} artevo-display`}>Your Vibe.</span>
           </h1>
 
-          <p className={styles.subline}>
-            {t('hero.sub1')}
-            <br />
-            {t('hero.sub2')}
-          </p>
-
-          {/* Stats row */}
-          <div className={styles.stats}>
-            <div className={styles.statItem}>
-              <span className={styles.statNum}>200+</span>
-              <span className={styles.statLabel}>{t('hero.stat1')}</span>
-            </div>
-            <div className={styles.statDivider} />
-            <div className={styles.statItem}>
-              <span className={styles.statNum}>100%</span>
-              <span className={styles.statLabel}>{t('hero.stat2')}</span>
-            </div>
-            <div className={styles.statDivider} />
-            <div className={styles.statItem}>
-              <span className={styles.statNum}>48h</span>
-              <span className={styles.statLabel}>{t('hero.stat3')}</span>
-            </div>
+          {/* Decorative underline doodle */}
+          <div className={styles.doodleUnderline} aria-hidden="true">
+            <ArrowDoodle />
           </div>
 
+          <p className={styles.sub}>
+            A little piece that makes your space feel more like you.
+          </p>
+
+          {/* CTAs */}
           <div className={styles.actions}>
-            <Link href="/shop" className={styles.primaryCta}>
-              <span>{t('hero.primaryCta')}</span>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+            <Link href="/shop" className={`${styles.primaryCta} btn-cobalt`} id="hero-shop-cta">
+              <span>SHOP THE FIRST DROP</span>
+              <ArrowRight size={16} className={styles.ctaArrow} />
             </Link>
-            <Link href="/shop" className={styles.secondaryCta}>
-              {t('hero.secondaryCta')}
+            <Link href="/shop" className={styles.secondaryCta} id="hero-explore-cta">
+              Explore the Room
             </Link>
+          </div>
+
+          {/* Trust indicators */}
+          <div className={styles.trust}>
+            <div className={styles.trustItem}>
+              <span className={styles.trustIcon}>🌿</span>
+              <span>Natural Wood</span>
+            </div>
+            <div className={styles.trustDot} />
+            <div className={styles.trustItem}>
+              <span className={styles.trustIcon}>📦</span>
+              <span>Fast Shipping</span>
+            </div>
+            <div className={styles.trustDot} />
+            <div className={styles.trustItem}>
+              <span className={styles.trustIcon}>❤️</span>
+              <span>Made to Last</span>
+            </div>
           </div>
         </div>
 
-        {/* Right — model image */}
-        <div className={styles.visual} aria-hidden="false">
+        {/* Right — hero image with doodles */}
+        <div className={styles.visual}>
+          {/* Doodle decorations */}
+          <div className={styles.doodleGroup} aria-hidden="true">
+            <div className={styles.doodleTopLeft}><StarDoodle /></div>
+            <div className={styles.doodleTopRight}><CrownDoodle /></div>
+            <div className={styles.doodleBottomLeft}><SmileyDoodle /></div>
+          </div>
+
+          {/* "The First Drop" badge */}
+          <div className={styles.firstDropBadge} aria-hidden="true">
+            <span className={`artevo-display ${styles.firstDropText}`}>The First</span>
+            <span className={`artevo-display ${styles.firstDropDrop}`}>Drop</span>
+          </div>
+
+          {/* Hero image */}
           <div className={styles.imageWrap}>
-
-            {/* Floating accent ring */}
-            <div className={styles.ringOuter} aria-hidden="true" />
-            <div className={styles.ringInner} aria-hidden="true" />
-
-            {/* Gold corner brackets */}
-            <div className={styles.cornerTL} aria-hidden="true" />
-            <div className={styles.cornerBR} aria-hidden="true" />
-
-            {/* Model photo */}
             <Image
               src="/hero-model.png"
-              alt="Modèle portant des lunettes de soleil Nyvara"
+              alt="ARTEVO Wall Rack in a real room"
               fill
               priority
               fetchPriority="high"
               sizes="(max-width: 900px) 100vw, 55vw"
-              className={styles.modelImg}
+              className={styles.heroImg}
             />
-
-            {/* Overlay gradient so image blends beautifully */}
             <div className={styles.imgOverlay} aria-hidden="true" />
+          </div>
 
-            {/* Floating tag */}
-            <div className={styles.floatTag}>
-              <span className={styles.floatTagDot} />
-              <span>{t('hero.tag')}</span>
+          {/* Floating product label */}
+          <div className={styles.floatCard}>
+            <div className={styles.floatCardDot} />
+            <div>
+              <p className={styles.floatCardTitle}>ARTEVO Wall Rack</p>
+              <p className={styles.floatCardSub}>Original Edition</p>
             </div>
-
-            {/* Year watermark */}
-            <div className={styles.yearMark} aria-hidden="true">2026</div>
           </div>
         </div>
       </div>

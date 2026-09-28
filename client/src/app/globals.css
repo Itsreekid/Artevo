@@ -2,51 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Font optimization: Use local fonts instead of remote imports */
-/* Fonts are now loaded via next/font/google in layout.tsx with preload and swap display */
-/* ─── Design Tokens ─────────────────────────────────────────── */
+/* ─── ARTEVO Design Tokens ────────────────────────────────── */
 :root {
-  --color-cream:      #F7F3ED;
-  --color-cream-dark: #EDE7DC;
-  --color-gold:       #C9A96E;
-  --color-gold-light: #D9BE90;
-  --color-black:      #0A0A0A;
-  --color-charcoal:   #1A1A1A;
-  --color-grey:       #6B6B6B;
-  --color-grey-light: #BEBEBE;
-  --color-white:      #FFFFFF;
-  --color-error:      #C0392B;
-  --color-success:    #27AE60;
+  /* Brand Colors */
+  --artevo-cobalt:       #0057D9;
+  --artevo-cobalt-dark:  #0044B0;
+  --artevo-cobalt-light: #3377E8;
+  --artevo-cobalt-pale:  #E8F0FD;
+  --artevo-yellow:       #FFE76B;
+  --artevo-yellow-dark:  #F5D84A;
+  --artevo-cream:        #FFF8EC;
+  --artevo-cream-dark:   #F5EDDB;
+  --artevo-cream-mid:    #EDE4D0;
+  --artevo-terracotta:   #FF7F5A;
+  --artevo-terracotta-light: #FFB09A;
+  --artevo-ink:          #1B1B1B;
+  --artevo-ink-light:    #3A3A3A;
+  --artevo-grey:         #6B6B6B;
+  --artevo-grey-light:   #B8B8B8;
+  --artevo-grey-pale:    #F0EDE8;
+  --artevo-white:        #FFFFFF;
+  --artevo-success:      #22C55E;
+  --artevo-error:        #EF4444;
 
-  --font-editorial:   var(--font-editorial, Georgia, serif);
-  --font-body:        var(--font-roboto, -apple-system, BlinkMacSystemFont, sans-serif);
+  /* Semantic aliases for existing code */
+  --color-cream:      var(--artevo-cream);
+  --color-cream-dark: var(--artevo-cream-dark);
+  --color-gold:       var(--artevo-cobalt);
+  --color-gold-light: var(--artevo-cobalt-light);
+  --color-black:      var(--artevo-ink);
+  --color-charcoal:   var(--artevo-ink-light);
+  --color-grey:       var(--artevo-grey);
+  --color-grey-light: var(--artevo-grey-light);
+  --color-white:      var(--artevo-white);
+  --color-error:      var(--artevo-error);
+  --color-success:    var(--artevo-success);
 
-  --radius-sm:    4px;
-  --radius-md:    8px;
-  --radius-lg:    16px;
+  /* Fonts */
+  --font-display:   var(--font-caveat, 'Caveat', cursive);
+  --font-body:      var(--font-jakarta, 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif);
+  --font-editorial: var(--font-caveat, 'Caveat', cursive);
+
+  /* Radius */
+  --radius-sm:    6px;
+  --radius-md:    12px;
+  --radius-lg:    20px;
+  --radius-xl:    32px;
   --radius-full:  9999px;
 
+  /* Shadows */
+  --shadow-sm:    0 1px 4px rgba(0,0,0,0.05);
   --shadow-card:  0 2px 20px rgba(0,0,0,0.06);
-  --shadow-hover: 0 8px 40px rgba(0,0,0,0.12);
-  --shadow-modal: 0 20px 60px rgba(0,0,0,0.20);
+  --shadow-hover: 0 8px 40px rgba(0,0,0,0.10);
+  --shadow-modal: 0 20px 60px rgba(0,0,0,0.18);
+  --shadow-cobalt: 0 8px 32px rgba(0,87,217,0.20);
 
-  --transition-fast:   150ms ease;
-  --transition-base:   300ms ease;
-  --transition-slow:   500ms ease;
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 280ms ease;
+  --transition-slow: 500ms ease;
 
-  --nav-height: 72px;
+  /* Layout */
+  --nav-height: 68px;
 }
 
-/* ─── Reset ─────────────────────────────────────────────────── */
+/* ─── Reset ────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
   font-family: var(--font-body);
-  background-color: var(--color-cream);
-  color: var(--color-black);
+  background-color: var(--artevo-cream);
+  color: var(--artevo-ink);
   font-size: 15px;
-  line-height: 1.6;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -67,7 +96,7 @@ html[lang="ar"] button {
   font-family: var(--font-cairo), sans-serif;
   letter-spacing: 0;
 }
-html[lang="ar"] .editorial {
+html[lang="ar"] .artevo-display {
   font-family: var(--font-cairo), sans-serif;
 }
 html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3, html[lang="ar"] h4 {
@@ -77,13 +106,16 @@ html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3, html[lang="ar"] h4 {
 
 /* ─── Scrollbar ─────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--color-cream-dark); }
-::-webkit-scrollbar-thumb { background: var(--color-gold); border-radius: 3px; }
+::-webkit-scrollbar-track { background: var(--artevo-cream-dark); }
+::-webkit-scrollbar-thumb { background: var(--artevo-cobalt); border-radius: 3px; opacity: 0.5; }
 
 /* ─── Typography Utilities ──────────────────────────────────── */
-.editorial { font-family: var(--font-editorial); }
-.text-gold  { color: var(--color-gold); }
-.text-grey  { color: var(--color-grey); }
+.artevo-display { font-family: var(--font-display); }
+.editorial      { font-family: var(--font-display); }
+.text-cobalt    { color: var(--artevo-cobalt); }
+.text-yellow    { color: var(--artevo-yellow-dark); }
+.text-grey      { color: var(--artevo-grey); }
+.text-terracotta{ color: var(--artevo-terracotta); }
 
 /* ─── Layout Utilities ──────────────────────────────────────── */
 .container {
@@ -99,11 +131,11 @@ html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3, html[lang="ar"] h4 {
 
 /* ─── Section Spacing ───────────────────────────────────────── */
 .section { padding: 80px 0; }
-@media (max-width: 768px) { .section { padding: 48px 0; } }
+@media (max-width: 768px) { .section { padding: 52px 0; } }
 
-/* ─── Fade-in Animation ─────────────────────────────────────── */
+/* ─── Animations ────────────────────────────────────────────── */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes fadeIn {
@@ -121,6 +153,111 @@ html[lang="ar"] h1, html[lang="ar"] h2, html[lang="ar"] h3, html[lang="ar"] h4 {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0.5; }
 }
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25%  { transform: rotate(-3deg); }
+  75%  { transform: rotate(3deg); }
+}
+@keyframes heartPop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+@keyframes arrowSlide {
+  0%   { transform: translateX(0); }
+  50%  { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
 
-.animate-fade-up  { animation: fadeUp 0.6s var(--transition-base) both; }
-.animate-fade-in  { animation: fadeIn 0.4s var(--transition-base) both; }
+.animate-fade-up  { animation: fadeUp 0.6s ease both; }
+.animate-fade-in  { animation: fadeIn 0.4s ease both; }
+
+/* ─── Reduced Motion ────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* ─── ARTEVO Button Base Styles ─────────────────────────────── */
+.btn-cobalt {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--artevo-cobalt);
+  color: var(--artevo-white);
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 14px 28px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+  box-shadow: var(--shadow-cobalt);
+}
+.btn-cobalt:hover {
+  background: var(--artevo-cobalt-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 40px rgba(0,87,217,0.28);
+}
+.btn-cobalt:active { transform: translateY(0); }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--artevo-ink);
+  border: 2px solid var(--artevo-ink);
+  border-radius: var(--radius-full);
+  padding: 12px 26px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+}
+.btn-outline:hover {
+  background: var(--artevo-ink);
+  color: var(--artevo-white);
+}
+
+/* ─── Skeleton Shimmer ──────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, var(--artevo-cream-dark) 25%, var(--artevo-cream-mid) 50%, var(--artevo-cream-dark) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+
+/* ─── Focus Visible ─────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--artevo-cobalt);
+  outline-offset: 3px;
+}
+
+/* ─── Utility: Yellow underline ─────────────────────────────── */
+.underline-yellow {
+  position: relative;
+  display: inline-block;
+}
+.underline-yellow::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--artevo-yellow);
+  border-radius: 2px;
+}

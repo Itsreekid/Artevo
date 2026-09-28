@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Cormorant_Garamond, Roboto, Cairo } from 'next/font/google';
+import { Plus_Jakarta_Sans, Caveat, Cairo } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -9,53 +9,54 @@ import { LanguageProvider } from '@/context/LanguageContext';
 import MainWrapper from '@/components/layout/MainWrapper';
 import FacebookPixel from '@/components/analytics/FacebookPixel';
 
-// Optimize fonts: preload and specify weights
-const cormorant = Cormorant_Garamond({
+// Plus Jakarta Sans — primary body / UI font
+const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-editorial',
-  preload: true,
-  display: 'swap', // Use system font while loading
-});
-
-const roboto = Roboto({
-  weight: ['300', '400', '500', '600', '700'],
-  subsets: ['latin'],
-  variable: '--font-roboto',
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-jakarta',
   preload: true,
   display: 'swap',
 });
 
+// Caveat — handwritten brand display font
+const caveat = Caveat({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-caveat',
+  preload: true,
+  display: 'swap',
+});
+
+// Cairo — Arabic language support
 const cairo = Cairo({
   weight: ['300', '400', '500', '600', '700', '800'],
   subsets: ['arabic', 'latin'],
   variable: '--font-cairo',
-  preload: true,
+  preload: false,
   display: 'swap',
 });
 
 export const metadata: Metadata = {
   title: {
-    default: 'Nyvara — Accessoires de Luxe Tunisie',
-    template: '%s | Nyvara',
+    default: 'ARTEVO — Make Space for Your Vibe',
+    template: '%s | ARTEVO',
   },
   description:
-    'Découvrez des accessoires de luxe uniques conçus pour la Tunisie. Nyvara — là où l\'élégance rencontre le style de vie méditerranéen.',
-  keywords: ['accessoires de luxe', 'Tunisie', 'bijoux', 'bagues', 'lunettes de soleil', 'TND', 'Nyvara'],
-  authors: [{ name: 'Nyvara' }],
+    'ARTEVO wooden wall racks. Designed for real rooms. Your wall. Your vibe.',
+  keywords: ['wall rack', 'wood rack', 'home decor', 'wall storage', 'ARTEVO', 'wooden shelf'],
+  authors: [{ name: 'ARTEVO' }],
   openGraph: {
-    title:       'Nyvara — Accessoires de Luxe Tunisie',
-    description: 'Accessoires de luxe uniques et élégants pour le marché tunisien.',
+    title:       'ARTEVO — Make Space for Your Vibe',
+    description: 'A little piece that makes your space feel more like you.',
     type:        'website',
-    locale:      'fr_TN',
+    locale:      'en_US',
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${cormorant.variable} ${roboto.variable} ${cairo.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${jakarta.variable} ${caveat.variable} ${cairo.variable}`} suppressHydrationWarning>
       <head>
-        {/* Preconnect to external origins */}
         <link rel="dns-prefetch" href="https://connect.facebook.net" />
         <FacebookPixel />
       </head>
