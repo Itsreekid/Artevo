@@ -38,13 +38,13 @@ export default function HomePage() {
           </Link>
           <div className={styles.vibeCard}>
             <div className={styles.vibeCardContent}>
-              <span className={`${styles.vibeCardTitle} ${styles.textInk}`}>LIGHT</span>
+              <span className={`${styles.vibeCardTitle} ${styles.vibeCardTitleDark}`}>LIGHT</span>
               <span className={styles.vibeCardSoon}>SOON</span>
             </div>
           </div>
           <div className={styles.vibeCard}>
             <div className={styles.vibeCardContent}>
-              <span className={`${styles.vibeCardTitle} ${styles.textInk}`}>DECOR</span>
+              <span className={`${styles.vibeCardTitle} ${styles.vibeCardTitleDark}`}>DECOR</span>
               <span className={styles.vibeCardSoon}>SOON</span>
             </div>
           </div>
@@ -84,7 +84,7 @@ export default function HomePage() {
         <div className={styles.spaceGrid}>
           {['MINIMAL', 'COZY', 'CREATIVE', 'EVERYDAY'].map(mood => (
             <div key={mood} className={styles.spaceCard}>
-              <Image src="/hero-artevo.png" alt={mood} fill style={{objectFit: 'cover', opacity: 0.8}} />
+              <Image src="/hero-artevo.png" alt={mood} fill className={styles.spaceCardImg} style={{objectFit: 'cover', opacity: 0.8}} />
               <div className={styles.spaceLabel}>{mood}</div>
             </div>
           ))}
