@@ -1,138 +1,179 @@
+/* ─── ARTEVO Cart Drawer ─────────────────────────────────────── */
+
 .backdrop {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.45);
-  backdrop-filter: blur(3px);
+  position: fixed;
+  inset: 0;
+  background: rgba(27, 27, 27, 0.45);
   z-index: 200;
-  animation: fadeIn 0.25s ease;
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.2s ease;
 }
+
 .drawer {
   position: fixed;
-  top: 0; right: 0; bottom: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 201;
   width: 420px;
   max-width: 100vw;
-  background: var(--color-cream);
-  z-index: 201;
+  background: var(--artevo-white);
   display: flex;
   flex-direction: column;
   transform: translateX(100%);
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: -8px 0 40px rgba(0,0,0,0.12);
+  box-shadow: -8px 0 60px rgba(0,0,0,0.12);
 }
-.open { transform: translateX(0); }
 
-/* ─── Header ──────────────────────────────── */
+.drawer.open {
+  transform: translateX(0);
+}
+
+/* ─── Header ──────────────────────────────────────── */
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px 24px;
-  border-bottom: 1px solid var(--color-cream-dark);
-  background: var(--color-cream);
+  border-bottom: 1px solid var(--artevo-cream-dark);
+  background: var(--artevo-cream);
   flex-shrink: 0;
 }
-.headerLeft { display: flex; align-items: center; gap: 10px; }
-.title {
-  font-family: var(--font-editorial);
-  font-size: 1.2rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  display: flex; align-items: center; gap: 8px;
-}
-.count { font-size: 0.9rem; color: var(--color-grey); font-family: var(--font-body); }
-.headerActions { display: flex; align-items: center; gap: 8px; }
-.clearBtn {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-grey);
-  transition: color var(--transition-fast);
-  padding: 4px 8px;
-  border-radius: var(--radius-sm);
-}
-.clearBtn:hover { color: var(--color-error); }
-.closeBtn {
-  display: flex; align-items: center; justify-content: center;
-  width: 36px; height: 36px;
-  border-radius: var(--radius-full);
-  color: var(--color-charcoal);
-  transition: background var(--transition-fast);
-}
-.closeBtn:hover { background: var(--color-cream-dark); }
 
-/* ─── Content ────────────────────────────── */
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--artevo-cobalt);
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--artevo-ink);
+}
+
+.count {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--artevo-grey);
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.clearBtn {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--artevo-grey);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+.clearBtn:hover {
+  color: var(--artevo-error);
+  background: rgba(239,68,68,0.08);
+}
+
+.closeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--artevo-grey);
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+.closeBtn:hover {
+  background: var(--artevo-cream-dark);
+  color: var(--artevo-ink);
+}
+
+/* ─── Content ─────────────────────────────────────── */
 .content {
   flex: 1;
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
+  overscroll-behavior: contain;
 }
 
-/* ─── Tracking Banner ──────────────────────── */
 .trackingBanner {
-  background: var(--color-charcoal);
-  color: var(--color-cream);
-  padding: 12px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(250, 250, 248, 0.1);
+  padding: 12px 24px;
+  background: var(--artevo-cobalt-pale);
+  border-bottom: 1px solid rgba(0,87,217,0.12);
 }
+
 .trackingInfo {
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-}
-.trackingLink {
-  font-size: 11px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--color-gold);
-  border: 1px solid var(--color-gold);
-  padding: 4px 10px;
-  border-radius: 100px;
-  transition: all 0.2s ease;
-}
-.trackingLink:hover {
-  background: var(--color-gold);
-  color: var(--color-charcoal);
+  color: var(--artevo-cobalt);
 }
 
-/* ─── Empty State ────────────────────────── */
+.trackingLink {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--artevo-cobalt);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Empty state */
 .empty {
-  flex: 1;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 60px 32px;
   text-align: center;
-  gap: 14px; padding: 40px 24px;
+  height: 100%;
+  min-height: 300px;
 }
-.emptyIcon { color: var(--color-grey-light); margin-bottom: 8px; }
+
+.emptyIcon {
+  color: var(--artevo-grey-light);
+}
+
 .emptyTitle {
-  font-family: var(--font-editorial);
-  font-size: 1.4rem; font-weight: 500;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--artevo-ink);
 }
-.emptyText { font-size: 14px; color: var(--color-grey); }
 
-/* ─── Items ──────────────────────────────── */
-.items { padding: 0 24px; flex: 1; }
+.emptyText {
+  font-size: 14px;
+  color: var(--artevo-grey);
+  line-height: 1.6;
+  max-width: 240px;
+}
 
-/* ─── Divider ────────────────────────────── */
-.divider { height: 1px; background: var(--color-cream-dark); margin: 0 24px; }
+.items {
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+}
 
-/* ─── Summary ────────────────────────────── */
+.divider {
+  height: 1px;
+  background: var(--artevo-cream-dark);
+  margin: 0 24px;
+}
+
 .summary {
-  padding: 20px 24px 28px;
-  background: var(--color-white);
-  border-top: 1px solid var(--color-cream-dark);
-  flex-shrink: 0;
+  padding: 0 24px 24px;
 }
-
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 @media (max-width: 480px) {
-  .drawer { width: 100vw; }
+  .drawer { width: 100%; }
 }

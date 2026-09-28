@@ -1,90 +1,72 @@
-/* ─── Base ───────────────────────────────────────────────────── */
+/* ─── ARTEVO Button Styles ────────────────────────────────────── */
+
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-family: var(--font-body);
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border-radius: var(--radius-full);
-  border: 1.5px solid transparent;
+  border: none;
+  font-family: inherit;
+  font-weight: 700;
   cursor: pointer;
-  transition: all var(--transition-base);
-  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+  border-radius: var(--radius-full);
+  text-decoration: none;
   white-space: nowrap;
-  user-select: none;
-}
-.btn:focus-visible {
-  outline: 2px solid var(--color-gold);
-  outline-offset: 2px;
-}
-.btn:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
 }
 
-/* ─── Variants ───────────────────────────────────────────────── */
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ─── Sizes ──────────────────────────────────── */
+.sm { font-size: 12px; padding: 8px 18px; }
+.md { font-size: 13px; padding: 12px 24px; }
+.lg { font-size: 14px; padding: 14px 32px; }
+
+/* ─── Variants ───────────────────────────────── */
 .primary {
-  background: var(--color-black);
-  color: var(--color-white);
-  border-color: var(--color-black);
+  background: var(--artevo-cobalt);
+  color: var(--artevo-white);
+  box-shadow: 0 4px 16px rgba(0,87,217,0.2);
 }
 .primary:hover:not(:disabled) {
-  background: var(--color-charcoal);
+  background: var(--artevo-cobalt-dark);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  box-shadow: 0 8px 24px rgba(0,87,217,0.28);
 }
+.primary:active:not(:disabled) { transform: translateY(0); }
 
 .secondary {
-  background: transparent;
-  color: var(--color-black);
-  border-color: var(--color-black);
+  background: var(--artevo-ink);
+  color: var(--artevo-white);
 }
 .secondary:hover:not(:disabled) {
-  background: var(--color-black);
-  color: var(--color-white);
+  background: var(--artevo-ink-light);
+  transform: translateY(-1px);
+}
+
+.outline {
+  background: transparent;
+  color: var(--artevo-cobalt);
+  border: 2px solid var(--artevo-cobalt);
+}
+.outline:hover:not(:disabled) {
+  background: var(--artevo-cobalt);
+  color: var(--artevo-white);
+  transform: translateY(-1px);
 }
 
 .ghost {
   background: transparent;
-  color: var(--color-grey);
-  border-color: transparent;
+  color: var(--artevo-ink);
+  border: 2px solid var(--artevo-cream-dark);
 }
 .ghost:hover:not(:disabled) {
-  color: var(--color-black);
-  background: var(--color-cream-dark);
-}
-
-.gold {
-  background: var(--color-gold);
-  color: var(--color-white);
-  border-color: var(--color-gold);
-}
-.gold:hover:not(:disabled) {
-  background: var(--color-gold-light);
+  background: var(--artevo-cream-dark);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(201,169,110,0.40);
 }
-
-/* ─── Sizes ──────────────────────────────────────────────────── */
-.sm { font-size: 11px; padding: 8px 18px; }
-.md { font-size: 12px; padding: 12px 28px; }
-.lg { font-size: 13px; padding: 16px 40px; }
-
-/* ─── Modifiers ──────────────────────────────────────────────── */
-.fullWidth { width: 100%; }
-
-/* ─── Loading ────────────────────────────────────────────────── */
-.loading { pointer-events: none; }
-.spinner {
-  position: absolute;
-  width: 14px; height: 14px;
-  border: 2px solid rgba(255,255,255,0.3);
-  border-top-color: currentColor;
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-.hiddenText { opacity: 0; }

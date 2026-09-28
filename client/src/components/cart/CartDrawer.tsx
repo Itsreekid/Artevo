@@ -28,7 +28,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-      setLastOrder(localStorage.getItem('nyvara_last_order'));
+      setLastOrder(localStorage.getItem('artevo_last_order') || localStorage.getItem('nyvara_last_order'));
     } else {
       document.body.style.overflow = '';
     }
@@ -70,14 +70,14 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
           <div className={styles.headerLeft}>
             <ShoppingBag size={18} />
             <span className={styles.title}>
-              {t('cart.title')}
+              YOUR BAG
               {itemCount > 0 && <span className={styles.count}>({itemCount})</span>}
             </span>
           </div>
           <div className={styles.headerActions}>
             {items.length > 0 && (
               <button className={styles.clearBtn} onClick={clearCart}>
-                {language === 'fr' ? 'Tout vider' : 'إفراغ الكل'}
+                Clear all
               </button>
             )}
             <button className={styles.closeBtn} onClick={onClose} aria-label="Fermer le panier">
@@ -92,10 +92,10 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
             <div className={styles.trackingBanner}>
               <div className={styles.trackingInfo}>
                 <Package size={16} />
-                <span>{language === 'fr' ? 'Suivi de commande' : 'تتبع الطلبية'}</span>
+                <span>Track your order</span>
               </div>
               <Link href={`/track/${lastOrder}`} onClick={onClose} className={styles.trackingLink}>
-                {language === 'fr' ? 'Suivre →' : 'تتبع →'}
+                Track →
               </Link>
             </div>
           )}
@@ -103,8 +103,8 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
           {items.length === 0 ? (
             <div className={styles.empty}>
               <ShoppingBag size={48} className={styles.emptyIcon} />
-              <p className={styles.emptyTitle}>{t('cart.empty')}</p>
-              <p className={styles.emptyText}>{language === 'fr' ? 'Ajoutez des lunettes pour commencer vos achats.' : 'زيد نظارات باش تبدا تشري.'}</p>
+              <p className={styles.emptyTitle}>Your bag is empty</p>
+              <p className={styles.emptyText}>Add some pieces to get started.</p>
               <Link href="/shop" onClick={onClose}>
                 <Button variant="primary" size="md">{t('shop.title')}</Button>
               </Link>

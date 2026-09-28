@@ -34,21 +34,36 @@ export default function AdminShell({ role, children }: Props) {
     return () => { document.body.style.overflow = ''; };
   }, [sidebarOpen]);
 
-  const NavLink = ({ href, icon: Icon, children, exact = false }: any) => {
+  const NavLink = ({ href, icon: Icon, children: label, exact = false }: {
+    href: string; icon: any; children: React.ReactNode; exact?: boolean;
+  }) => {
     const isActive = exact ? pathname === href : pathname.startsWith(href);
     return (
-      <Link 
-        href={href} 
-        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors font-medium ${isActive ? 'bg-nyvara-gold text-white shadow-md' : 'text-gray-300 hover:bg-white/10 hover:text-white'}`}
+      <Link
+        href={href}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px',
+          padding: '10px 16px',
+          borderRadius: '10px',
+          fontWeight: 600,
+          fontSize: '14px',
+          transition: 'all 150ms ease',
+          textDecoration: 'none',
+          color: isActive ? '#0057D9' : '#6B6B6B',
+          background: isActive ? 'rgba(0,87,217,0.08)' : 'transparent',
+          borderLeft: isActive ? '3px solid #0057D9' : '3px solid transparent',
+        }}
       >
-        <Icon size={20} />
-        <span>{children}</span>
+        <Icon size={18} />
+        <span>{label}</span>
       </Link>
     );
   };
 
   return (
-    <div className="flex h-screen bg-gray-50 text-gray-900 overflow-hidden font-sans">
+    <div style={{ display: 'flex', height: '100vh', background: '#F5EDDB', color: '#1B1B1B', overflow: 'hidden', fontFamily: 'var(--font-jakarta, sans-serif)' }}>
       <OrderToast order={newOrder} onClose={() => setNewOrder(null)} />
       <ErrorToast />
       <SuccessToast />
@@ -56,79 +71,133 @@ export default function AdminShell({ role, children }: Props) {
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm transition-opacity"
+          style={{ position: 'fixed', inset: 0, background: 'rgba(27,27,27,0.5)', zIndex: 40, backdropFilter: 'blur(2px)' }}
           onClick={() => setSidebarOpen(false)}
           aria-hidden="true"
         />
       )}
 
       {/* Sidebar */}
-      <aside 
-        className={`fixed inset-y-0 left-0 z-50 w-72 bg-nyvara-charcoal text-white transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0 flex flex-col shadow-2xl ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
+      <aside style={{
+        position: 'fixed',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        zIndex: 50,
+        width: '260px',
+        background: '#FFFFFF',
+        display: 'flex',
+        flexDirection: 'column',
+        boxShadow: '2px 0 20px rgba(0,0,0,0.06)',
+        transform: sidebarOpen ? 'translateX(0)' : 'translateX(-100%)',
+        transition: 'transform 300ms ease',
+      }}
+      className="md-sidebar"
       >
-        <div className="flex items-center justify-between h-20 px-6 bg-black/50 border-b border-white/10">
-          <div className="text-2xl font-bold tracking-[0.2em] text-nyvara-gold">NYVARA</div>
-          <button className="md:hidden text-gray-400 hover:text-white p-2" onClick={() => setSidebarOpen(false)}>
-            <X size={24} />
+        {/* Logo area */}
+        <div style={{ padding: '20px 24px', borderBottom: '1px solid #F0EDE8', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0 }}>
+          <div>
+            <div style={{ fontSize: '20px', fontWeight: 900, letterSpacing: '-0.01em', color: '#0057D9' }}>ARTEVO</div>
+            <div style={{ fontSize: '11px', color: '#6B6B6B', fontWeight: 500, marginTop: '2px' }}>Admin Dashboard</div>
+          </div>
+          <button style={{ display: 'flex', cursor: 'pointer', border: 'none', background: 'none', color: '#6B6B6B', padding: '4px' }} onClick={() => setSidebarOpen(false)} aria-label="Close menu">
+            <X size={20} />
           </button>
         </div>
 
-        <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto scrollbar-thin scrollbar-thumb-white/20">
-          {isAdmin && <NavLink href="/admin" icon={LayoutDashboard} exact>Tableau de bord</NavLink>}
-          <NavLink href="/admin/orders" icon={ShoppingCart}>Commandes</NavLink>
-          <NavLink href="/admin/preparation" icon={Package}>Préparation (Cosmos)</NavLink>
-          {isAdmin && <NavLink href="/admin/products" icon={Package}>Produits</NavLink>}
-          {isAdmin && <NavLink href="/admin/categories" icon={Tag}>Catégories</NavLink>}
-          {isAdmin && <NavLink href="/admin/employees" icon={Users}>Employés</NavLink>}
+        {/* Nav links */}
+        <nav style={{ flex: 1, padding: '16px 12px', display: 'flex', flexDirection: 'column', gap: '4px', overflowY: 'auto' }}>
+          {isAdmin && <NavLink href="/admin" icon={LayoutDashboard} exact>Dashboard</NavLink>}
+          <NavLink href="/admin/orders" icon={ShoppingCart}>Orders</NavLink>
+          <NavLink href="/admin/preparation" icon={Package}>Preparation</NavLink>
+          {isAdmin && <NavLink href="/admin/products" icon={Package}>Products</NavLink>}
+          {isAdmin && <NavLink href="/admin/categories" icon={Tag}>Categories</NavLink>}
+          {isAdmin && <NavLink href="/admin/employees" icon={Users}>Team</NavLink>}
           {isAdmin && <NavLink href="/admin/catalog-ad" icon={Megaphone}>Catalog Ad</NavLink>}
-          {isAdmin && <NavLink href="/admin/trending" icon={TrendingUp}>Tendances</NavLink>}
+          {isAdmin && <NavLink href="/admin/trending" icon={TrendingUp}>Trending</NavLink>}
         </nav>
 
-        <div className="p-4 border-t border-white/10 bg-black/20">
+        {/* Logout */}
+        <div style={{ padding: '16px 12px', borderTop: '1px solid #F0EDE8' }}>
           <form action={logoutAction}>
-            <button type="submit" className="flex items-center justify-center gap-3 w-full px-4 py-3 text-red-400 hover:text-red-300 hover:bg-red-400/10 rounded-lg transition-colors font-medium">
-              <LogOut size={20} />
-              <span>Déconnexion</span>
+            <button type="submit" style={{
+              display: 'flex', alignItems: 'center', gap: '12px', width: '100%',
+              padding: '10px 16px', borderRadius: '10px', cursor: 'pointer',
+              border: 'none', background: 'none', fontFamily: 'inherit',
+              color: '#EF4444', fontWeight: 600, fontSize: '14px',
+              transition: 'background 150ms',
+            }}
+            onMouseOver={e => (e.currentTarget.style.background = 'rgba(239,68,68,0.08)')}
+            onMouseOut={e => (e.currentTarget.style.background = 'none')}
+            >
+              <LogOut size={18} />
+              <span>Sign Out</span>
             </button>
           </form>
         </div>
       </aside>
 
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        {/* Top Header */}
-        <header className="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-6 shadow-sm z-10 shrink-0">
-          <div className="flex items-center gap-4">
+      {/* Main content */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, overflow: 'hidden', marginLeft: '0' }}>
+        {/* Top header */}
+        <header style={{
+          height: '68px',
+          background: '#FFFFFF',
+          borderBottom: '1px solid #F0EDE8',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '0 28px',
+          boxShadow: '0 1px 8px rgba(0,0,0,0.04)',
+          zIndex: 10,
+          flexShrink: 0,
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             <button
-              className="md:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+              style={{ display: 'flex', cursor: 'pointer', border: 'none', background: 'none', color: '#6B6B6B', padding: '6px' }}
               onClick={() => setSidebarOpen(true)}
               aria-label="Toggle menu"
             >
-              <Menu size={24} />
+              <Menu size={22} />
             </button>
-            <div className="text-xl font-semibold text-gray-800 tracking-tight hidden sm:block">
-              {isAdmin ? "Espace d'administration" : 'Espace employé'}
+            <div style={{ fontSize: '16px', fontWeight: 700, color: '#1B1B1B' }}>
+              {isAdmin ? 'Admin Space' : 'Team Space'}
             </div>
           </div>
-          
-          <div className="flex items-center gap-3">
-            <div className="flex flex-col items-end">
-              <span className="text-sm font-semibold text-gray-900">{isAdmin ? 'Admin' : 'Employé'}</span>
-              <span className="text-xs text-gray-500">NYVARA Team</span>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ textAlign: 'right' }}>
+              <div style={{ fontSize: '14px', fontWeight: 700, color: '#1B1B1B' }}>{isAdmin ? 'Admin' : 'Employee'}</div>
+              <div style={{ fontSize: '12px', color: '#6B6B6B' }}>ARTEVO Team</div>
             </div>
-            <div className="w-10 h-10 rounded-full bg-nyvara-gold flex items-center justify-center text-white font-bold shadow-md">
+            <div style={{
+              width: '40px', height: '40px', borderRadius: '50%',
+              background: '#0057D9', display: 'flex', alignItems: 'center',
+              justifyContent: 'center', color: '#FFFFFF', fontWeight: 800, fontSize: '16px',
+            }}>
               {isAdmin ? 'A' : 'E'}
             </div>
           </div>
         </header>
 
-        {/* Scrollable Main Area */}
-        <main className="flex-1 overflow-y-auto p-4 md:p-8 bg-gray-50/50">
-          <div className="mx-auto max-w-7xl">
+        {/* Scrollable main */}
+        <main style={{ flex: 1, overflowY: 'auto', padding: '28px', background: '#FFF8EC' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             {children}
           </div>
         </main>
       </div>
+
+      {/* Desktop sidebar always visible via CSS */}
+      <style>{`
+        @media (min-width: 768px) {
+          .md-sidebar {
+            position: relative !important;
+            transform: translateX(0) !important;
+            flex-shrink: 0;
+          }
+        }
+      `}</style>
     </div>
   );
 }

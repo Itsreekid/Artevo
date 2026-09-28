@@ -92,31 +92,31 @@ export default function AdminDashboardPage() {
   return (
     <div>
       <div className={adminStyles.pageHeader}>
-        <h1 className={adminStyles.pageTitle}>Aperçu de la progression</h1>
+        <h1 className={adminStyles.pageTitle}>Good morning 👋 &mdash; here&apos;s your ARTEVO overview.</h1>
       </div>
 
       {/* ── Top Cards ── */}
       <div className={styles.dashboardGrid}>
         <div className={styles.metricCard}>
-          <div className={styles.metricTitle}>Commandes d&apos;aujourd&apos;hui</div>
+          <div className={styles.metricTitle}>Today&apos;s Revenue</div>
           <div className={styles.metricValue}>{revenueToday.toFixed(3)} TND</div>
-          <div className={styles.metricSub}>{ordersToday.length} Commandes</div>
+          <div className={styles.metricSub}>{ordersToday.length} orders today</div>
         </div>
         <div className={styles.metricCard}>
-          <div className={styles.metricTitle}>Toutes les commandes</div>
+          <div className={styles.metricTitle}>Total Orders</div>
           <div className={styles.metricValue}>{orders.length}</div>
-          <div className={styles.metricSub}>Historique complet</div>
+          <div className={styles.metricSub}>All time</div>
         </div>
         <div className={`${styles.metricCard} ${styles.accent}`}>
-          <div className={styles.metricTitle}>Revenu Brut (Livrés)</div>
+          <div className={styles.metricTitle}>Gross Revenue (Delivered)</div>
           <div className={styles.metricValue}>{grossRevenue.toFixed(3)} TND</div>
-          <div className={styles.metricSub}>{deliveredOrders.length} livrés · {returnedOrders.length} retournés</div>
+          <div className={styles.metricSub}>{deliveredOrders.length} delivered · {returnedOrders.length} returned</div>
         </div>
       </div>
 
       {/* ── Revenue Calculator ── */}
       <div className={styles.calcSection}>
-        <h2 className={styles.sectionTitle}>💰 Calculateur de Revenu Net</h2>
+        <h2 className={styles.sectionTitle}>💰 Net Revenue Calculator</h2>
 
         <div className={styles.calcGrid}>
 
@@ -235,7 +235,7 @@ export default function AdminDashboardPage() {
 
       {/* ── Recent Orders ── */}
       <div className={styles.chartSection}>
-        <h2 className={styles.sectionTitle}>Dernières Commandes</h2>
+        <h2 className={styles.sectionTitle}>Recent Orders</h2>
         <div className={adminStyles.tableContainer}>
           <div className={adminStyles.tableScrollWrapper}>
           <table className={adminStyles.table}>
