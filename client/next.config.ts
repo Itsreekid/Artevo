@@ -11,7 +11,13 @@ const nextConfig: NextConfig = {
         pathname: '/storage/v1/object/public/**',
       },
       {
-        // Cloudflare R2 public development URL
+        // Cloudflare R2 public URL — Artevo bucket (active)
+        protocol: 'https',
+        hostname: 'pub-3ef72613dbf24e238b4f448dc5ae67a3.r2.dev',
+        pathname: '/**',
+      },
+      {
+        // Cloudflare R2 public URL — old Nyvara bucket (kept for legacy images)
         protocol: 'https',
         hostname: 'pub-96ecbfcde03642529999eddf062d31f5.r2.dev',
         pathname: '/**',
@@ -23,6 +29,7 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
+
     // Image optimization settings
     formats: ['image/avif', 'image/webp'], // Modern formats
     deviceSizes: [320, 420, 640, 768, 1024, 1280, 1536],
