@@ -29,7 +29,7 @@ export default function HeroSection() {
         <div className={styles.content}>
           <div className={styles.badge}>
             <span className={styles.badgeDot} aria-hidden="true" />
-            THE FIRST DROP
+            ✦ DROP 001
           </div>
 
           <h1 className={`${styles.headline} artevo-display`}>
@@ -59,7 +59,7 @@ export default function HeroSection() {
           <div className={styles.benefits}>
             <span>Natural Wood</span>
             <span className={styles.benefitDot}>·</span>
-            <span>Wall Mounted</span>
+            <span>Easy to Mount</span>
             <span className={styles.benefitDot}>·</span>
             <span>Made to Last</span>
           </div>
@@ -80,9 +80,9 @@ export default function HeroSection() {
           </div>
 
           <div className={styles.productLabel}>
-            <p className={styles.labelEyebrow}>✦ FIRST PIECE</p>
-            <p className={styles.labelTitle}>ARTEVO</p>
-            <p className={styles.labelSub}>Wall Rack — Original</p>
+            <p className={styles.labelEyebrow}>✦ DROP 001</p>
+            <p className={styles.labelTitle}>ARTEVO Wall Rack</p>
+            <p className={styles.labelSub}>Original Edition</p>
           </div>
         </div>
       </div>

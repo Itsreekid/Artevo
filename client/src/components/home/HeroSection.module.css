@@ -34,7 +34,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--artevo-cobalt-pale);
+  background: var(--artevo-cream-dark); /* Warmer background instead of blue pale */
   color: var(--artevo-cobalt);
   font-size: 11px;
   font-weight: 700;
@@ -42,7 +42,8 @@
   text-transform: uppercase;
   padding: 6px 14px;
   border-radius: var(--radius-full);
-  margin-bottom: 32px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .badgeDot {
@@ -158,9 +159,8 @@
 .visual {
   position: relative;
   width: 100%;
-  height: 700px; /* Large editorial height */
-  max-height: 85vh;
-  animation: fadeUp 0.8s ease both 0.1s;
+  height: 740px; /* Increased editorial height */
+  max-height: 88vh;
 }
 
 .imageWrap {
@@ -187,16 +187,16 @@
 .productLabel {
   position: absolute;
   bottom: 32px;
-  left: -24px;
-  background: var(--artevo-white);
+  left: -20px;
+  background: var(--artevo-cream); /* Warm cream */
   padding: 16px 20px;
   border-radius: 12px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
-  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.03);
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
 }
 
 .labelEyebrow {
