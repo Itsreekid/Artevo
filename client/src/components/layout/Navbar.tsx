@@ -65,8 +65,8 @@ export default function Navbar() {
             <Image
               src="/artevo-logo.png"
               alt="ARTEVO"
-              width={120}
-              height={44}
+              width={180}
+              height={60}
               style={{ objectFit: 'contain' }}
               priority
             />
@@ -160,7 +160,7 @@ export default function Navbar() {
 
           <nav className={styles.mobileNav}>
             <Link href="/" className={styles.mobileLogoLink} onClick={() => setMenuOpen(false)}>
-              <Image src="/artevo-logo.png" alt="ARTEVO" width={100} height={36} style={{ objectFit: 'contain' }} />
+              <Image src="/artevo-logo.png" alt="ARTEVO" width={140} height={50} style={{ objectFit: 'contain' }} />
             </Link>
 
             {NAV_LINKS.map((link, i) => (

@@ -89,30 +89,7 @@ export default function BrandStrip() {
           ))}
         </div>
 
-        {/* Show us your wall CTA */}
-        <div className={styles.socialSection}>
-          <div className={styles.socialContent}>
-            <p className={`${styles.socialEyebrow} artevo-display`}>Show us your wall →</p>
-            <p className={styles.socialDesc}>
-              Tag us in your setup and get featured.
-            </p>
-            <a
-              href="https://instagram.com/artevo"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.socialHandle}
-              aria-label="ARTEVO on Instagram"
-            >
-              @artevo
-            </a>
-          </div>
-          <div className={styles.socialGrid} aria-hidden="true">
-            <div className={styles.socialPlaceholder}>📸</div>
-            <div className={styles.socialPlaceholder}>🛖</div>
-            <div className={styles.socialPlaceholder}>🪵</div>
-            <div className={styles.socialPlaceholder}>🏡</div>
-          </div>
-        </div>
+
       </div>
     </section>
   );
