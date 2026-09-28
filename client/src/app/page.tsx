@@ -160,9 +160,9 @@ export default function HomePage() {
       <section className={styles.emailSection}>
         <h2 className={styles.emailTitle}>DON&apos;T MISS THE NEXT DROP.</h2>
         <p className={styles.emailSub}>New pieces. Fresh ideas. Good walls.</p>
-        <form className={styles.emailForm} onSubmit={e => e.preventDefault()}>
+        <form className={styles.emailForm} action="/api/newsletter" method="POST">
           <input type="email" placeholder="YOUR EMAIL" className={styles.emailInput} required />
-          <button type="submit" className={styles.emailBtn}>JOIN ARTEVO →</button>
+          <button type="button" className={styles.emailBtn}>JOIN ARTEVO →</button>
         </form>
       </section>
     </>
