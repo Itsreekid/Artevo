@@ -37,7 +37,7 @@ export async function POST(request: Request) {
 
     const bucket = process.env.R2_BUCKET_NAME;
     const keyPrefix = process.env.R2_KEY_PREFIX ?? '';
-    const publicBase = process.env.R2_PUBLIC_URL || 'https://pub-96ecbfcde03642529999eddf062d31f5.r2.dev';
+    const publicBase = process.env.R2_PUBLIC_URL || 'https://pub-3ef72613dbf24e238b4f448dc5ae67a3.r2.dev';
 
     if (!bucket) {
       return NextResponse.json({ error: 'R2_BUCKET_NAME is not configured' }, { status: 500 });

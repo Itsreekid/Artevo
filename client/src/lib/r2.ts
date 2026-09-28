@@ -37,7 +37,7 @@ export function getR2Client(): S3Client {
 }
 
 // ─── Image URL normalizer ─────────────────────────────────────────────────────
-const DEFAULT_PUBLIC_BASE_URL = 'https://pub-96ecbfcde03642529999eddf062d31f5.r2.dev/nyvarastore';
+const DEFAULT_PUBLIC_BASE_URL = 'https://pub-3ef72613dbf24e238b4f448dc5ae67a3.r2.dev';
 const LEGACY_SUPABASE_PRODUCT_IMAGE_URL = /^https:\/\/[^/]+\/storage\/v1\/object\/public\/Product\/(?:images\/)?(.+)$/i;
 
 const trimmedPublicBaseUrl = (process.env.NEXT_PUBLIC_R2_PUBLIC_BASE_URL ?? DEFAULT_PUBLIC_BASE_URL).replace(/\/+$/, '');
@@ -54,7 +54,7 @@ export const R2_PRODUCTS_PUBLIC_URL = `${R2_PUBLIC_BASE_URL}/products`;
  *   https://vkrgfqjsixjsieqzykcx.supabase.co/storage/v1/object/public/Product/images/<file>
  *
  * R2 URL pattern:
- *   https://pub-96ecbfcde03642529999eddf062d31f5.r2.dev/nyvarastore/products/<file>
+ *   https://pub-3ef72613dbf24e238b4f448dc5ae67a3.r2.dev/products/<file>
  *
  * Non-Supabase URLs (already R2 or external) are returned unchanged.
  */
