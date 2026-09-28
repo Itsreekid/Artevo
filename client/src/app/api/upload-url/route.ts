@@ -36,17 +36,17 @@ export async function POST(request: Request) {
     }
 
     const bucket = process.env.R2_BUCKET_NAME;
-    const keyPrefix = process.env.R2_KEY_PREFIX || 'nyvarastore';
+    const keyPrefix = process.env.R2_KEY_PREFIX ?? '';
     const publicBase = process.env.R2_PUBLIC_URL || 'https://pub-96ecbfcde03642529999eddf062d31f5.r2.dev';
 
     if (!bucket) {
       return NextResponse.json({ error: 'R2_BUCKET_NAME is not configured' }, { status: 500 });
     }
 
-    // Simple key: prefix/folder/filename
-    const key = `${keyPrefix}/${folder}/${fileName}`;
+    // Build key: if prefix is set → prefix/folder/filename, else → folder/filename
+    const key = keyPrefix ? `${keyPrefix}/${folder}/${fileName}` : `${folder}/${fileName}`;
 
-    // Public URL: base/prefix/folder/filename
+    // Public URL
     const publicUrl = `${publicBase}/${key}`;
 
     const command = new PutObjectCommand({
