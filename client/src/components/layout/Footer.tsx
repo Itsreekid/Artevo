@@ -75,18 +75,12 @@ export default function Footer() {
         {/* Column 2: SOCIAL */}
         <nav className={styles.links} aria-label="Social navigation">
           <p className={styles.linksTitle}>SOCIAL</p>
-          <a href="https://instagram.com/artevo" target="_blank" rel="noopener noreferrer" className={styles.link}>Instagram</a>
+          <a href="https://www.instagram.com/artevo_tn/" target="_blank" rel="noopener noreferrer" className={styles.link}>Instagram</a>
           <a href="https://tiktok.com/@artevo" target="_blank" rel="noopener noreferrer" className={styles.link}>TikTok</a>
           <a href="https://pinterest.com/artevo" target="_blank" rel="noopener noreferrer" className={styles.link}>Pinterest</a>
         </nav>
 
-        {/* Column 3: HELP */}
-        <nav className={styles.links} aria-label="Help navigation">
-          <p className={styles.linksTitle}>HELP</p>
-          {HELP_LINKS.map(l => (
-            <Link key={l.href} href={l.href} className={styles.link}>{l.label}</Link>
-          ))}
-        </nav>
+
       </div>
 
       <div className={styles.bottom} suppressHydrationWarning>

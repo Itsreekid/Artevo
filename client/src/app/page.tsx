@@ -126,7 +126,7 @@ export default function HomePage() {
         </div>
 
         <div className={styles.socialFooter}>
-          <a href="https://instagram.com/artevo" target="_blank" rel="noopener noreferrer" className={styles.btnSecondary}>FOLLOW @ARTEVO →</a>
+          <a href="https://www.instagram.com/artevo_tn/" target="_blank" rel="noopener noreferrer" className={styles.btnSecondary}>FOLLOW @ARTEVO →</a>
         </div>
       </section>
 
