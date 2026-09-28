@@ -37,6 +37,7 @@
   --color-white:      var(--artevo-white);
   --color-error:      var(--artevo-error);
   --color-success:    var(--artevo-success);
+  --color-border:     var(--artevo-cream-dark);
 
   /* Fonts */
   --font-display:   var(--font-caveat, 'Caveat', cursive);

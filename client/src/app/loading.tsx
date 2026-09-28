@@ -7,39 +7,48 @@ export default function GlobalLoading() {
       alignItems: 'center',
       justifyContent: 'center',
       height: '100vh',
-      backgroundColor: 'var(--color-bg)',
-      color: 'var(--color-gold)',
+      backgroundColor: 'var(--artevo-cream)',
       flexDirection: 'column',
-      gap: '24px'
+      gap: '20px',
     }}>
-      <div style={{
-        position: 'relative',
-        width: '60px',
-        height: '60px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
+      {/* Spinner ring */}
+      <div style={{ position: 'relative', width: '56px', height: '56px' }}>
         <div style={{
           position: 'absolute',
-          width: '100%',
-          height: '100%',
-          border: '2px solid rgba(201, 169, 110, 0.2)',
-          borderTopColor: 'var(--color-gold)',
+          inset: 0,
+          border: '2.5px solid var(--artevo-cream-dark)',
+          borderTopColor: 'var(--artevo-cobalt)',
           borderRadius: '50%',
-          animation: 'spin 1s linear infinite'
+          animation: 'artevoSpin 0.9s linear infinite',
         }} />
-        <span style={{ 
-          fontFamily: 'var(--font-editorial)', 
-          fontSize: '24px',
-          color: 'var(--color-text)'
-        }}>
-          N
-        </span>
+        {/* Yellow dot accent */}
+        <div style={{
+          position: 'absolute',
+          top: '-3px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '8px',
+          height: '8px',
+          background: 'var(--artevo-yellow)',
+          borderRadius: '50%',
+        }} />
       </div>
+
+      {/* Brand wordmark */}
+      <span style={{
+        fontFamily: 'var(--font-jakarta, sans-serif)',
+        fontSize: '13px',
+        fontWeight: 800,
+        letterSpacing: '0.22em',
+        textTransform: 'uppercase',
+        color: 'var(--artevo-cobalt)',
+      }}>
+        ARTEVO
+      </span>
+
       <style>{`
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
+        @keyframes artevoSpin {
+          0%   { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
         }
       `}</style>

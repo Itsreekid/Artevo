@@ -70,3 +70,34 @@
   background: var(--artevo-cream-dark);
   transform: translateY(-1px);
 }
+
+/* Gold = yellow accent button */
+.gold {
+  background: var(--artevo-yellow);
+  color: var(--artevo-ink);
+  border: 1.5px solid var(--artevo-ink);
+  box-shadow: 0 4px 16px rgba(255,231,107,0.3);
+}
+.gold:hover:not(:disabled) {
+  background: var(--artevo-yellow-dark);
+  transform: translateY(-1px);
+}
+
+/* ─── Full Width ─────────────────────────────── */
+.fullWidth { width: 100%; }
+
+/* ─── Loading state ──────────────────────────── */
+.loading { cursor: wait; pointer-events: none; }
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: btnSpin 0.7s linear infinite;
+}
+.hiddenText { opacity: 0; }
+@keyframes btnSpin {
+  to { transform: rotate(360deg); }
+}

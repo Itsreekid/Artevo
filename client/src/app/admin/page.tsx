@@ -39,7 +39,7 @@ export default function AdminDashboardPage() {
 
   // Load saved ads cost on mount
   useEffect(() => {
-    const saved = localStorage.getItem('nyvara_ads_cost_week');
+    const saved = localStorage.getItem('artevo_ads_cost_week');
     if (saved) {
       const val = parseFloat(saved);
       if (!isNaN(val)) { setAdsCost(val); setAdsInput(saved); }
@@ -50,7 +50,7 @@ export default function AdminDashboardPage() {
     const val = parseFloat(adsInput);
     const final = isNaN(val) ? 0 : val;
     setAdsCost(final);
-    localStorage.setItem('nyvara_ads_cost_week', String(final));
+    localStorage.setItem('artevo_ads_cost_week', String(final));
     setAdsEditing(false);
   };
 

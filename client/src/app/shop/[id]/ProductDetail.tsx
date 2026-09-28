@@ -356,7 +356,7 @@ export default function ProductDetail({ product, gallery, related }: Props) {
                   )}
                 </>
               ) : (
-                <div className={styles.placeholder}>NYVARA</div>
+                <div className={styles.placeholder}>ARTEVO</div>
               )}
             </div>
 

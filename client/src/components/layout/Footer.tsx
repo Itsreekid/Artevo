@@ -48,7 +48,7 @@ export default function Footer() {
         <div className={styles.brand}>
           <div className={styles.logoWrapper}>
             <Image
-              src="/artevo-logo.jpg"
+              src="/artevo-logo.png"
               alt="ARTEVO"
               width={110}
               height={40}

@@ -34,7 +34,7 @@ function CartContent() {
         <div className={styles.inner}>
           <div className={styles.empty}>
             <div className={styles.successIcon}>
-              <CheckCircle2 size={80} color="var(--color-gold)" />
+              <CheckCircle2 size={80} color="var(--artevo-success)" />
             </div>
             <h1 className={styles.emptyTitle}>{t('checkout.successTitle')}</h1>
             <p className={styles.emptyText}>
@@ -116,7 +116,7 @@ function CartContent() {
                 <CheckoutForm onSuccess={(id) => {
                   setOrderId(id);
                   setStep('success');
-                  localStorage.setItem('nyvara_last_order', id);
+                  localStorage.setItem('artevo_last_order', id);
                 }} />
               )}
             </div>

@@ -10,48 +10,76 @@ export default function NotFound() {
       minHeight: '80vh',
       textAlign: 'center',
       padding: '24px',
-      backgroundColor: 'var(--color-bg)',
-      color: 'var(--color-text)'
+      backgroundColor: 'var(--artevo-cream)',
+      color: 'var(--artevo-ink)',
     }}>
+      {/* Doodle star */}
+      <div style={{ marginBottom: '8px', fontSize: '28px' }}>✦</div>
+
       <h1 style={{
-        fontFamily: 'var(--font-editorial)',
-        fontSize: 'clamp(4rem, 8vw, 8rem)',
-        color: 'var(--color-gold)',
+        fontFamily: 'var(--font-caveat, cursive)',
+        fontSize: 'clamp(5rem, 10vw, 9rem)',
+        color: 'var(--artevo-cobalt)',
         margin: '0',
-        lineHeight: 1
+        lineHeight: 1,
       }}>404</h1>
+
       <h2 style={{
-        fontSize: '24px',
-        fontWeight: 400,
+        fontSize: '20px',
+        fontWeight: 700,
         marginTop: '16px',
-        marginBottom: '24px',
-        letterSpacing: '0.05em'
-      }}>Page Introuvable</h2>
+        marginBottom: '12px',
+        color: 'var(--artevo-ink)',
+        letterSpacing: '0.02em',
+      }}>Page not found</h2>
+
       <p style={{
-        color: 'var(--color-grey-light)',
-        maxWidth: '400px',
-        lineHeight: 1.6,
-        marginBottom: '40px'
+        color: 'var(--artevo-grey)',
+        maxWidth: '360px',
+        lineHeight: 1.65,
+        marginBottom: '36px',
+        fontSize: '15px',
       }}>
-        La page que vous recherchez semble avoir disparu. Explorez nos collections pour découvrir votre prochaine pièce maîtresse.
+        Looks like this wall is bare. Let&apos;s get you back to the good stuff.
       </p>
+
+      {/* Yellow accent underline decoration */}
+      <div style={{
+        width: '48px',
+        height: '4px',
+        background: 'var(--artevo-yellow)',
+        borderRadius: '2px',
+        marginBottom: '32px',
+      }} />
+
       <Link href="/shop" style={{
         display: 'inline-flex',
         alignItems: 'center',
-        justifyContent: 'center',
+        gap: '8px',
         height: '48px',
         padding: '0 32px',
-        backgroundColor: 'var(--color-gold)',
-        color: 'var(--color-bg)',
-        fontWeight: 600,
+        backgroundColor: 'var(--artevo-cobalt)',
+        color: 'var(--artevo-white)',
+        fontWeight: 700,
         textTransform: 'uppercase',
         letterSpacing: '0.1em',
         fontSize: '13px',
         textDecoration: 'none',
-        transition: 'all 0.2s ease',
-        borderRadius: '24px'
+        borderRadius: 'var(--radius-full)',
+        boxShadow: 'var(--shadow-cobalt)',
+        transition: 'background 0.15s ease',
       }}>
-        Retour à la boutique
+        Shop the First Drop →
+      </Link>
+
+      <Link href="/" style={{
+        marginTop: '16px',
+        fontSize: '14px',
+        color: 'var(--artevo-grey)',
+        textDecoration: 'underline',
+        textUnderlineOffset: '3px',
+      }}>
+        Back to home
       </Link>
     </div>
   );

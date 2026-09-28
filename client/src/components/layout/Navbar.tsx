@@ -63,7 +63,7 @@ export default function Navbar() {
           {/* Center — ARTEVO logo */}
           <Link href="/" className={styles.logoWrapper} aria-label="ARTEVO Home">
             <Image
-              src="/artevo-logo.jpg"
+              src="/artevo-logo.png"
               alt="ARTEVO"
               width={120}
               height={44}
@@ -160,7 +160,7 @@ export default function Navbar() {
 
           <nav className={styles.mobileNav}>
             <Link href="/" className={styles.mobileLogoLink} onClick={() => setMenuOpen(false)}>
-              <Image src="/artevo-logo.jpg" alt="ARTEVO" width={100} height={36} style={{ objectFit: 'contain' }} />
+              <Image src="/artevo-logo.png" alt="ARTEVO" width={100} height={36} style={{ objectFit: 'contain' }} />
             </Link>
 
             {NAV_LINKS.map((link, i) => (
