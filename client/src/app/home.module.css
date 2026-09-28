@@ -1,0 +1,459 @@
+/* ─── ARTEVO HOMEPAGE SECTIONS ──────────────────────────────── */
+
+/* Base Section Styles */
+.section {
+  position: relative;
+  padding: 100px 24px;
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.sectionHeader {
+  margin-bottom: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sectionTitle {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 800;
+  color: var(--artevo-ink);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.sectionSub {
+  font-size: clamp(16px, 1.5vw, 18px);
+  color: var(--artevo-grey);
+  max-width: 500px;
+  line-height: 1.5;
+}
+
+/* ─── 1. SHOP THE VIBE ───────────────────────────────────── */
+.vibeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.vibeCard {
+  position: relative;
+  aspect-ratio: 4/5;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--artevo-cream-dark);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 32px;
+  group: vibe;
+}
+
+.vibeCardImg {
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.vibeCard:hover .vibeCardImg {
+  transform: scale(1.03);
+}
+
+.vibeCardOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(27,27,27,0.4) 0%, transparent 50%);
+  z-index: 1;
+}
+
+.vibeCardContent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.vibeCardTitle {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--artevo-white);
+  letter-spacing: 0.02em;
+}
+
+.vibeCardSoon {
+  background: var(--artevo-white);
+  color: var(--artevo-ink);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.1em;
+}
+
+/* ─── 2. PRODUCT SPOTLIGHT ────────────────────────────────── */
+.spotlight {
+  padding: 120px 24px;
+  background: var(--artevo-cream-dark);
+  border-radius: 32px;
+  margin: 60px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.spotlightImgWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/5;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.08);
+}
+
+.spotlightContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.spotlightDrop {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--artevo-cobalt);
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+
+.spotlightTitle {
+  font-size: clamp(48px, 6vw, 80px);
+  line-height: 1;
+  color: var(--artevo-ink);
+  margin-bottom: 32px;
+}
+
+.spotlightQuote {
+  font-size: 24px;
+  color: var(--artevo-ink);
+  font-style: italic;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.spotlightDesc {
+  font-size: 16px;
+  color: var(--artevo-grey);
+  line-height: 1.6;
+  margin-bottom: 40px;
+  max-width: 400px;
+}
+
+.spotlightPrice {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--artevo-ink);
+  margin-bottom: 24px;
+}
+
+/* ─── 3. SEE IT IN YOUR SPACE ─────────────────────────────── */
+.spaceGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.spaceCard {
+  position: relative;
+  aspect-ratio: 3/4;
+  border-radius: 12px;
+  background: var(--artevo-cream-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.spaceLabel {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--artevo-ink);
+  backdrop-filter: blur(4px);
+}
+
+/* ─── 4. MADE FOR REAL ROOMS ────────────────────────────── */
+.philosophy {
+  padding: 140px 24px;
+  text-align: center;
+}
+
+.philosophyGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 64px;
+  margin-top: 80px;
+}
+
+.philosophyItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.philosophyNum {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--artevo-cobalt);
+  margin-bottom: 24px;
+  letter-spacing: 0.1em;
+}
+
+.philosophyTitle {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--artevo-ink);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.philosophyDesc {
+  font-size: 15px;
+  color: var(--artevo-grey);
+  line-height: 1.6;
+}
+
+/* ─── 5. SHOW US YOUR WALL ──────────────────────────────── */
+.socialGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.socialImg {
+  aspect-ratio: 1;
+  background: var(--artevo-cream-dark);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.socialPlaceholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  opacity: 0.5;
+}
+
+.socialFooter {
+  display: flex;
+  justify-content: center;
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--artevo-ink);
+  border: 2px solid var(--artevo-ink);
+  padding: 14px 28px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.btnSecondary:hover {
+  background: var(--artevo-ink);
+  color: var(--artevo-white);
+}
+
+/* ─── 6. MORE PIECES ARE COMING ──────────────────────────── */
+.comingGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.comingCard {
+  background: var(--artevo-cream-dark);
+  border: 1px dashed rgba(27,27,27,0.1);
+  border-radius: 16px;
+  padding: 60px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.comingDrop {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--artevo-grey);
+  margin-bottom: 12px;
+  letter-spacing: 0.1em;
+}
+
+.comingTitle {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--artevo-ink);
+  margin-bottom: 24px;
+}
+
+.comingSoon {
+  background: var(--artevo-yellow);
+  color: var(--artevo-cobalt);
+  font-size: 10px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 12px;
+  letter-spacing: 0.1em;
+}
+
+/* ─── 7. EMAIL SIGNUP ───────────────────────────────────── */
+.emailSection {
+  background: var(--artevo-cobalt);
+  border-radius: 32px;
+  margin: 60px 24px 120px;
+  padding: 100px 24px;
+  text-align: center;
+  color: var(--artevo-white);
+}
+
+.emailTitle {
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 800;
+  margin-bottom: 16px;
+  color: var(--artevo-white);
+}
+
+.emailSub {
+  font-size: 18px;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 48px;
+}
+
+.emailForm {
+  display: flex;
+  max-width: 480px;
+  margin: 0 auto;
+  gap: 12px;
+}
+
+.emailInput {
+  flex: 1;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-full);
+  padding: 0 24px;
+  color: var(--artevo-white);
+  font-size: 16px;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.emailInput::placeholder {
+  color: rgba(255,255,255,0.5);
+}
+
+.emailInput:focus {
+  border-color: var(--artevo-yellow);
+}
+
+.emailBtn {
+  background: var(--artevo-yellow);
+  color: var(--artevo-cobalt);
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 0 32px;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+  height: 56px;
+}
+
+.emailBtn:hover {
+  transform: translateY(-2px);
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .spotlight {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding: 60px 32px;
+  }
+  
+  .spotlightContent {
+    order: -1;
+  }
+  
+  .spaceGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 16px;
+  }
+  
+  .vibeGrid, .philosophyGrid, .comingGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .philosophyGrid {
+    gap: 48px;
+    margin-top: 48px;
+  }
+  
+  .socialGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .spotlight {
+    margin: 40px 16px;
+    padding: 40px 24px;
+    border-radius: 24px;
+  }
+  
+  .emailSection {
+    margin: 40px 16px 60px;
+    padding: 60px 24px;
+    border-radius: 24px;
+  }
+  
+  .emailForm {
+    flex-direction: column;
+  }
+  
+  .emailInput {
+    height: 56px;
+  }
+  
+  .emailBtn {
+    width: 100%;
+  }
+}

@@ -31,10 +31,16 @@ function PinterestIcon({ size = 18 }: { size?: number }) {
   );
 }
 
-const LINKS = [
+const SHOP_LINKS = [
   { label: 'Shop', href: '/shop' },
   { label: 'Track Order', href: '/track' },
-  { label: 'Wishlist', href: '/wishlist' },
+  { label: 'About', href: '/about' },
+];
+
+const HELP_LINKS = [
+  { label: 'Shipping', href: '#' },
+  { label: 'Returns', href: '#' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export default function Footer() {
@@ -55,39 +61,32 @@ export default function Footer() {
               style={{ objectFit: 'contain' }}
             />
           </div>
-          <p className={styles.tagline}>
-            Make space for your vibe.
-          </p>
-          <p className={styles.subbrand}>
-            Natural wood wall racks for real rooms.
-          </p>
 
-          <div className={styles.socials}>
-            <a href="https://instagram.com/artevo" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className={styles.socialLink}>
-              <InstagramIcon size={18} />
-            </a>
-            <a href="https://tiktok.com/@artevo" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className={styles.socialLink}>
-              <TikTokIcon size={18} />
-            </a>
-            <a href="https://pinterest.com/artevo" target="_blank" rel="noopener noreferrer" aria-label="Pinterest" className={styles.socialLink}>
-              <PinterestIcon size={18} />
-            </a>
-          </div>
         </div>
 
-        {/* Links */}
-        <nav className={styles.links} aria-label="Footer navigation">
-          <p className={styles.linksTitle}>Pages</p>
-          {LINKS.map(l => (
+        {/* Column 1: SHOP */}
+        <nav className={styles.links} aria-label="Shop navigation">
+          <p className={styles.linksTitle}>SHOP</p>
+          {SHOP_LINKS.map(l => (
             <Link key={l.href} href={l.href} className={styles.link}>{l.label}</Link>
           ))}
         </nav>
 
-        {/* Tag */}
-        <div className={styles.tagSection}>
-          <p className={`${styles.tagBig} artevo-display`}>#ShowUsYourWall</p>
-          <p className={styles.tagSub}>Tag us in your room setup.</p>
-        </div>
+        {/* Column 2: SOCIAL */}
+        <nav className={styles.links} aria-label="Social navigation">
+          <p className={styles.linksTitle}>SOCIAL</p>
+          <a href="https://instagram.com/artevo" target="_blank" rel="noopener noreferrer" className={styles.link}>Instagram</a>
+          <a href="https://tiktok.com/@artevo" target="_blank" rel="noopener noreferrer" className={styles.link}>TikTok</a>
+          <a href="https://pinterest.com/artevo" target="_blank" rel="noopener noreferrer" className={styles.link}>Pinterest</a>
+        </nav>
+
+        {/* Column 3: HELP */}
+        <nav className={styles.links} aria-label="Help navigation">
+          <p className={styles.linksTitle}>HELP</p>
+          {HELP_LINKS.map(l => (
+            <Link key={l.href} href={l.href} className={styles.link}>{l.label}</Link>
+          ))}
+        </nav>
       </div>
 
       <div className={styles.bottom} suppressHydrationWarning>
