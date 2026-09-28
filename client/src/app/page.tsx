@@ -29,7 +29,7 @@ export default function HomePage() {
         </div>
         
         <div className={styles.vibeGrid}>
-          <Link href="/shop" className={styles.vibeCard}>
+          <Link href="/shop" className={`${styles.vibeCard} ${styles.vibeCardLink}`}>
             <Image src="/hero-artevo.png" alt="Wall category" fill className={styles.vibeCardImg} />
             <div className={styles.vibeCardOverlay} />
             <div className={styles.vibeCardContent}>
@@ -117,17 +117,16 @@ export default function HomePage() {
       <section className={styles.section}>
         <div className={styles.sectionHeader} style={{alignItems: 'center', textAlign: 'center'}}>
           <h2 className={styles.sectionTitle}>Show us your wall.</h2>
-          <p className={styles.sectionSub}>Tag @ARTEVO and show us how you made it yours.</p>
         </div>
-        <div className={styles.socialGrid}>
-          {[1,2,3,4].map(i => (
-            <div key={i} className={styles.socialImg}>
-              <div className={styles.socialPlaceholder}>{['📸','🪴','📚','🏡'][i-1]}</div>
-            </div>
-          ))}
+        
+        <div className={styles.ugcPlaceholder}>
+          <p className={styles.ugcTitle}>Your wall deserves a spot here.</p>
+          <p className={styles.ugcDesc}>Tag @ARTEVO in your setup and show us how you made it yours.</p>
+          <span className={styles.ugcSoon}>COMING SOON</span>
         </div>
+
         <div className={styles.socialFooter}>
-          <a href="#" className={styles.btnSecondary}>FOLLOW @ARTEVO →</a>
+          <a href="https://instagram.com/artevo" target="_blank" rel="noopener noreferrer" className={styles.btnSecondary}>FOLLOW @ARTEVO →</a>
         </div>
       </section>
 
