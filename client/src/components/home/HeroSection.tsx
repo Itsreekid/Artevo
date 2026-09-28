@@ -126,7 +126,7 @@ export default function HeroSection() {
           {/* Hero image */}
           <div className={styles.imageWrap}>
             <Image
-              src="/hero-model.png"
+              src="/hero-artevo.png"
               alt="ARTEVO Wall Rack in a real room"
               fill
               priority

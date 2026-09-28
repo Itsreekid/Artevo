@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Nous contacter — Nyvara Sunglasses',
-  description: 'Prenez contact avec l\'équipe Nyvara. Nous sommes à votre écoute pour toute question ou demande de support.',
+  title: 'Contact Us — ARTEVO',
+  description: 'Get in touch with the ARTEVO team. We are here to help.',
 };
 
 export default function ContactPage() {
@@ -124,7 +124,7 @@ export default function ContactPage() {
         gap: '8px'
       }}>
         <div>📍 Tunis, Tunisie</div>
-        <div>✉️ <a href="mailto:contact@nyvara.tn" style={{ color: 'var(--color-gold)', textDecoration: 'none' }}>contact@nyvara.tn</a></div>
+        <div>✉️ <a href="mailto:hello@artevo.com" style={{ color: 'var(--artevo-cobalt)', textDecoration: 'none' }}>hello@artevo.com</a></div>
       </div>
     </div>
   );

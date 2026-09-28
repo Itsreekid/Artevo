@@ -4,7 +4,7 @@ import { normalizeProductImageUrl } from '@/lib/r2';
 export const DEFAULT_GOOGLE_PRODUCT_CATEGORY =
   'Apparel & Accessories > Clothing Accessories > Sunglasses';
 
-export const DEFAULT_BRAND = 'Nyvara';
+export const DEFAULT_BRAND = 'ARTEVO';
 
 export type MetaCatalogProduct = Pick<
   Product,
@@ -116,9 +116,9 @@ export function buildMetaCatalogXmlItem(
 ): string {
   const indent = options?.indent ?? '    ';
   const { regularPrice, salePrice, onSale } = getProductPricing(product);
-  const title = escXml(product.title ?? 'Nyvara Sunglasses');
-  const description = escXml(product.description ?? 'Lunettes de soleil de luxe — Nyvara Tunisia');
-  const link = escXml(`https://nyvara.net/shop/${product.id}`);
+  const title = escXml(product.title ?? 'ARTEVO Wall Rack');
+  const description = escXml(product.description ?? 'Natural wood wall racks for real rooms. — ARTEVO');
+  const link = escXml(`https://artevo.com/shop/${product.id}`);
   const imageLink = escXml(normalizeProductImageUrl(product.image_url));
   const availability = (product.stock ?? 0) > 0 ? 'in stock' : 'out of stock';
   const brand = escXml(product.brand ?? DEFAULT_BRAND);
@@ -176,12 +176,12 @@ export function buildMetaCatalogCsvRow(product: MetaCatalogProduct, galleryUrls:
   return [
     esc(product.id),
     esc(product.title ?? ''),
-    esc(product.description ?? 'Lunettes de soleil Nyvara'),
+    esc(product.description ?? 'ARTEVO Wall Rack'),
     esc((product.stock ?? 0) > 0 ? 'in stock' : 'out of stock'),
     esc('new'),
     esc(formatMetaPrice(onSale ? regularPrice : salePrice)),
     esc(onSale ? formatMetaPrice(salePrice) : ''),
-    esc(`https://nyvara.net/shop/${product.id}`),
+    esc(`https://artevo.com/shop/${product.id}`),
     esc(normalizeProductImageUrl(product.image_url)),
     esc(additionalImages.join(',')),
     esc(product.brand ?? DEFAULT_BRAND),

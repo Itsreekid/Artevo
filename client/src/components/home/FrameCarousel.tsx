@@ -10,7 +10,7 @@ const ROOMS = [
     emoji: '🔑',
     desc: 'Keys. Jackets. Bags. Done.',
     color: '#0057D9',
-    img: '/hero-model.png', // Will use real product image
+    img: '/hero-artevo.png', // Will use real product image
   },
   {
     id: 'bedroom',
@@ -18,7 +18,7 @@ const ROOMS = [
     emoji: '✨',
     desc: 'Your everyday pieces, right where you need them.',
     color: '#FF7F5A',
-    img: '/hero-model.png',
+    img: '/hero-artevo.png',
   },
   {
     id: 'minimal',
@@ -26,7 +26,7 @@ const ROOMS = [
     emoji: '🌿',
     desc: 'Less clutter. More character.',
     color: '#1B1B1B',
-    img: '/hero-model.png',
+    img: '/hero-artevo.png',
   },
 ];
 

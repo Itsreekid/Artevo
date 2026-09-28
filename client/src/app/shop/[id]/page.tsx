@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const rows = await sql`SELECT title, description FROM products WHERE id = ${id} LIMIT 1`;
   const data = rows[0] as any;
   return {
-    title: data?.title ? `${data.title} — NYVARA` : 'Produit — NYVARA',
+    title: data?.title ? `${data.title} — ARTEVO` : 'Product — ARTEVO',
     description: data?.description ?? 'Découvrez notre collection de lunettes de luxe.',
   };
 }
