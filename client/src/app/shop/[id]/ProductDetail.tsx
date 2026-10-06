@@ -20,12 +20,6 @@ const formatTND = (price: number | null) => {
   return `${price.toLocaleString('fr-TN', { minimumFractionDigits: 3 })} TND`;
 };
 
-const genderLabel: Record<string, string> = {
-  homme: "Men's",
-  femme: "Women's",
-  unisex: 'Unisex',
-  enfant: "Kids'",
-};
 
 interface GalleryImage { id: string; image_url: string; }
 interface Props {
@@ -307,7 +301,7 @@ export default function ProductDetail({ product, gallery, related }: Props) {
           )}
           <div className={styles.metaRow}>
             {product.categories?.name && <span className={styles.category}>{product.categories.name}</span>}
-            {product.gender && <span className={styles.genderPill}>{genderLabel[product.gender]}</span>}
+            {null /* gender pill removed */}
           </div>
           <h1 className={styles.title}>{product.title ?? 'Sunglasses'}</h1>
           {product.rating != null && (
@@ -434,7 +428,7 @@ export default function ProductDetail({ product, gallery, related }: Props) {
               )}
               <div className={styles.metaRow}>
                 {product.categories?.name && <span className={styles.category}>{product.categories.name}</span>}
-                {product.gender && <span className={styles.genderPill}>{genderLabel[product.gender]}</span>}
+                {null /* gender pill removed */}
               </div>
 
               {/* Title */}

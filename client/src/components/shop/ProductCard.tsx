@@ -6,7 +6,6 @@ import { Heart, ShoppingBag } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useWishlist } from '@/context/WishlistContext';
 import { useState } from 'react';
-import Badge from '@/components/ui/Badge';
 import type { Product } from '@/types';
 import { useLanguage } from '@/context/LanguageContext';
 import { getTranslation } from '@/locales/dictionary';
@@ -76,12 +75,6 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
     window.setTimeout(() => setWishlistDisabled(false), 600);
   };
 
-  const genderLabel: Record<string, string> = {
-    homme: t('product.genderMen'),
-    femme: t('product.genderWomen'),
-    unisex: t('product.genderUnisex'),
-  };
-
   return (
     <Link href={`/shop/${product.id}`} style={{ textDecoration: 'none', pointerEvents: isOutOfStock ? 'none' : 'auto' }}>
       <article className={`${styles.card} ${isOutOfStock ? styles.outOfStockCard : ''}`} aria-label={product.title ?? 'Product'}>
@@ -105,14 +98,7 @@ export default function ProductCard({ product, priority = false }: ProductCardPr
             </div>
           )}
 
-          {/* Gender badge */}
-          {product.gender && (
-            <div className={styles.genderBadge}>
-              <Badge variant="black">
-                {genderLabel[product.gender] ?? product.gender}
-              </Badge>
-            </div>
-          )}
+          {/* Gender badge removed — not relevant for home decoration products */}
 
           {/* Discount badge */}
           {hasDiscount && (

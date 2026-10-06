@@ -6,7 +6,7 @@ import { useCategories } from '@/hooks/useOrders';
 import Button from '@/components/ui/Button';
 import { useLanguage } from '@/context/LanguageContext';
 import { getTranslation } from '@/locales/dictionary';
-import type { ProductFilters, Gender } from '@/types';
+import type { ProductFilters } from '@/types';
 import styles from './FilterSidebar.module.css';
 
 interface FilterSidebarProps {
@@ -32,13 +32,6 @@ export default function FilterSidebar({ filters, onChange, onReset }: FilterSide
   const [openSections, setOpenSections] = useState({ gender: true, category: true, price: true, frameShape: true });
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const GENDERS: { value: Gender | 'all'; label: string }[] = [
-    { value: 'all',    label: t('shop.filterAll') },
-    { value: 'homme',  label: t('shop.filterMen') },
-    { value: 'femme',  label: t('shop.filterWomen') },
-    { value: 'unisex', label: t('shop.filterUnisex') },
-  ];
-
   const toggle = (section: keyof typeof openSections) =>
     setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
 
@@ -60,30 +53,7 @@ export default function FilterSidebar({ filters, onChange, onReset }: FilterSide
         )}
       </div>
 
-      {/* Gender */}
-      <div className={styles.section}>
-        <button className={styles.sectionToggle} onClick={() => toggle('gender')}>
-          <span>{t('shop.filterGender')}</span>
-          {openSections.gender ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-        </button>
-        {openSections.gender && (
-          <div className={styles.options}>
-            {GENDERS.map(g => (
-              <label key={g.value} className={styles.optionLabel}>
-                <input
-                  type="radio"
-                  name="gender"
-                  value={g.value}
-                  checked={(filters.gender ?? 'all') === g.value}
-                  onChange={() => onChange({ ...filters, gender: g.value })}
-                  className={styles.radio}
-                />
-                <span className={styles.optionText}>{g.label}</span>
-              </label>
-            ))}
-          </div>
-        )}
-      </div>
+      {/* Gender filter removed — not relevant for home decoration products */}
 
       {/* Frame Shape */}
       <div className={styles.section}>
