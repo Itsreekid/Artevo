@@ -32,7 +32,7 @@ export default function HomepageSettingsPage() {
       { mood: 'MINIMAL', product_id: '', image_url: '' },
       { mood: 'COZY', product_id: '', image_url: '' },
       { mood: 'CREATIVE', product_id: '', image_url: '' }
-    ]
+    ],
     vibe_title: 'Shop the Vibe.',
     vibe_subtitle: 'Pieces for walls, corners, shelves and everything in between.',
     vibe_items: [
