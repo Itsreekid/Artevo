@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import HeroSection from '@/components/home/HeroSection';
+import NewsletterForm from '@/components/home/NewsletterForm';
 import styles from './home.module.css';
 import { getHomepageSettings, SpaceItemResolved } from '@/lib/homepage-settings';
 
@@ -170,10 +171,7 @@ export default async function HomePage() {
       <section className={styles.emailSection}>
         <h2 className={styles.emailTitle}>DON&apos;T MISS THE NEXT DROP.</h2>
         <p className={styles.emailSub}>New pieces. Fresh ideas. Good walls.</p>
-        <form className={styles.emailForm} action="/api/newsletter" method="POST">
-          <input type="email" placeholder="YOUR EMAIL" className={styles.emailInput} required />
-          <button type="button" className={styles.emailBtn}>JOIN ARTEVO →</button>
-        </form>
+        <NewsletterForm />
       </section>
     </>
   );
