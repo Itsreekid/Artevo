@@ -28,7 +28,7 @@ ${products.map(p => buildMetaCatalogXmlItem(p, { galleryUrls: galleryByProduct[p
 }
 
 function buildCsv(products: Product[], galleryByProduct: Record<string, string[]> = {}): string {
-  const header = 'id,title,description,availability,condition,price,sale_price,link,image_link,additional_image_link,brand,google_product_category,gender';
+  const header = 'id,title,description,availability,condition,price,sale_price,link,image_link,additional_image_link,brand,google_product_category';
   const rows = products.map(p => buildMetaCatalogCsvRow(p, galleryByProduct[p.id] ?? []));
   return [header, ...rows].join('\n');
 }

@@ -2,7 +2,7 @@ import type { Product } from '@/types';
 import { normalizeProductImageUrl } from '@/lib/r2';
 
 export const DEFAULT_GOOGLE_PRODUCT_CATEGORY =
-  'Apparel & Accessories > Clothing Accessories > Sunglasses';
+  'Home & Garden > Decor';
 
 export const DEFAULT_BRAND = 'ARTEVO';
 
@@ -103,13 +103,6 @@ function escXml(value: string): string {
     .replace(/'/g, '&apos;');
 }
 
-function mapGender(gender: MetaCatalogProduct['gender']): string {
-  if (gender === 'homme') return 'male';
-  if (gender === 'femme') return 'female';
-  if (gender === 'enfant') return 'unisex'; // Meta/Google doesn't have a kids value for accessories
-  return 'unisex';
-}
-
 export function buildMetaCatalogXmlItem(
   product: MetaCatalogProduct,
   options?: { galleryUrls?: string[]; indent?: string }
@@ -126,8 +119,7 @@ export function buildMetaCatalogXmlItem(
   const categoryName = Array.isArray(product.categories)
     ? product.categories[0]?.name
     : product.categories?.name;
-  const productType = escXml(categoryName ?? 'sunglasses');
-  const gender = mapGender(product.gender);
+  const productType = escXml(categoryName ?? 'Home Decor');
 
   const priceBlock = onSale
     ? `<g:price>${formatMetaPrice(regularPrice)}</g:price>
@@ -163,8 +155,7 @@ ${indent}  ${priceBlock}
 ${indent}  <g:brand>${brand}</g:brand>
 ${indent}  <g:condition>new</g:condition>
 ${indent}  <g:google_product_category>${googleCategory}</g:google_product_category>
-${indent}  <g:product_type>${productType}</g:product_type>
-${indent}  <g:gender>${gender}</g:gender>${customLabels}
+${indent}  <g:product_type>${productType}</g:product_type>${customLabels}
 ${indent}</item>`;
 }
 
@@ -186,6 +177,5 @@ export function buildMetaCatalogCsvRow(product: MetaCatalogProduct, galleryUrls:
     esc(additionalImages.join(',')),
     esc(product.brand ?? DEFAULT_BRAND),
     esc(product.google_product_category ?? DEFAULT_GOOGLE_PRODUCT_CATEGORY),
-    esc(product.gender === 'homme' ? 'male' : product.gender === 'femme' ? 'female' : 'unisex'),
   ].join(',');
 }

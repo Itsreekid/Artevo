@@ -15,30 +15,19 @@ interface FilterSidebarProps {
   onReset: () => void;
 }
 
-const FRAME_SHAPES_MAP = [
-  { val: 'Rond Classique', key: 'shapes.round' },
-  { val: 'Aviateur', key: 'shapes.aviator' },
-  { val: 'Oeil-de-chat', key: 'shapes.cateye' },
-  { val: 'Carree', key: 'shapes.square' },
-  { val: 'Rectangulaire', key: 'shapes.rectangular' },
-  { val: 'Geometrique', key: 'shapes.geometric' },
-];
-
 export default function FilterSidebar({ filters, onChange, onReset }: FilterSidebarProps) {
   const { categories, loading } = useCategories();
   const { language } = useLanguage();
   const t = (path: string) => getTranslation(language, path);
 
-  const [openSections, setOpenSections] = useState({ gender: true, category: true, price: true, frameShape: true });
+  const [openSections, setOpenSections] = useState({ category: true, price: true });
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const toggle = (section: keyof typeof openSections) =>
     setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
 
   const hasActiveFilters =
-    (filters.gender && filters.gender !== 'all') ||
     filters.category_id ||
-    filters.frame_shape ||
     filters.min_price !== undefined ||
     filters.max_price !== undefined;
 
@@ -53,43 +42,7 @@ export default function FilterSidebar({ filters, onChange, onReset }: FilterSide
         )}
       </div>
 
-      {/* Gender filter removed — not relevant for home decoration products */}
-
-      {/* Frame Shape */}
-      <div className={styles.section}>
-        <button className={styles.sectionToggle} onClick={() => toggle('frameShape')}>
-          <span>{t('shop.filterFrameShape')}</span>
-          {openSections.frameShape ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-        </button>
-        {openSections.frameShape && (
-          <div className={styles.options}>
-            <label className={styles.optionLabel}>
-              <input
-                type="radio"
-                name="frame_shape"
-                value=""
-                checked={!filters.frame_shape}
-                onChange={() => onChange({ ...filters, frame_shape: undefined })}
-                className={styles.radio}
-              />
-              <span className={styles.optionText}>{t('shop.filterAllShapes')}</span>
-            </label>
-            {FRAME_SHAPES_MAP.map(shape => (
-              <label key={shape.val} className={styles.optionLabel}>
-                <input
-                  type="radio"
-                  name="frame_shape"
-                  value={shape.val}
-                  checked={filters.frame_shape === shape.val}
-                  onChange={() => onChange({ ...filters, frame_shape: shape.val })}
-                  className={styles.radio}
-                />
-                <span className={styles.optionText}>{t(shape.key)}</span>
-              </label>
-            ))}
-          </div>
-        )}
-      </div>
+      {/* Gender & Frame Shape filters removed — not relevant for home decoration products */}
 
       {/* Category */}
       <div className={styles.section}>

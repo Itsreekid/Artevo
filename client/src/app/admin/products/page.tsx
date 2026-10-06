@@ -815,15 +815,6 @@ export default function AdminProductsPage() {
               <input type="number" step="1" className={styles.input} value={formData.stock} onChange={set('stock')} />
             </div>
             <div className={styles.inputGroup}>
-              <label>Genre</label>
-              <select className={styles.input} value={formData.gender} onChange={set('gender')}>
-                <option value="unisex">Unisexe</option>
-                <option value="homme">Homme</option>
-                <option value="femme">Femme</option>
-                <option value="enfant">Enfant</option>
-              </select>
-            </div>
-            <div className={styles.inputGroup}>
               <label>Catégorie</label>
               <select className={styles.input} value={formData.category_id} onChange={set('category_id')}>
                 <option value="">— Sans catégorie —</option>
@@ -885,67 +876,6 @@ export default function AdminProductsPage() {
             </div>
           )}
 
-          {/* Quiz IA — Style & Morphologie */}
-          <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '12px', border: '1px solid #e2e8f0', marginBottom: '20px' }}>
-            <h4 style={{ margin: '0 0 16px 0', color: '#334155', fontSize: '14px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <Sparkles size={16} color="#7c5cfc" /> Style &amp; Morphologie (Quiz IA)
-            </h4>
-            <div className={styles.priceRow}>
-              <div className={styles.inputGroup}>
-                <label>Forme de monture <AiBadge field="frame_shape" /></label>
-                <select className={styles.input} value={formData.frame_shape} onChange={set('frame_shape')}>
-                  <option value="">— Selectionner —</option>
-                  <option value="Rond Classique">Rond Classique</option>
-                  <option value="Aviateur">Aviateur</option>
-                  <option value="Oeil-de-chat">Oeil-de-chat</option>
-                  <option value="Carree">Carree</option>
-                  <option value="Rectangulaire">Rectangulaire</option>
-                  <option value="Geometrique">Geometrique</option>
-                </select>
-              </div>
-              <div className={styles.inputGroup}>
-                <label>Style / Vibe <AiBadge field="style_vibe" /></label>
-                <select className={styles.input} value={formData.style_vibe} onChange={set('style_vibe')}>
-                  <option value="">— Selectionner —</option>
-                  <option value="Retro">Retro</option>
-                  <option value="Minimaliste">Minimaliste</option>
-                  <option value="Audacieux">Audacieux</option>
-                  <option value="Chic">Chic</option>
-                  <option value="Sport">Sport</option>
-                </select>
-              </div>
-              <div className={styles.inputGroup}>
-                <label>Taille / Coupe <AiBadge field="optical_fit" /></label>
-                <select className={styles.input} value={formData.optical_fit} onChange={set('optical_fit')}>
-                  <option value="">— Selectionner —</option>
-                  <option value="Petit / Etroit">Petit / Etroit</option>
-                  <option value="Moyen / Standard">Moyen / Standard</option>
-                  <option value="Large">Large</option>
-                </select>
-              </div>
-            </div>
-            <div className={styles.inputGroup} style={{ marginTop: '12px' }}>
-              <label>Visages recommandes <AiBadge field="ideal_faces" /></label>
-              <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                {['Rond', 'Oval', 'Carre', 'Coeur'].map(face => {
-                  const isChecked = formData.ideal_faces.some(f => f.toLowerCase() === face.toLowerCase() || (face === 'Oval' && f.toLowerCase() === 'ovale') || (face === 'Coeur' && f.toLowerCase() === 'coeur'));
-                  return (
-                    <label key={face} style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', cursor: 'pointer' }}>
-                      <input type="checkbox" checked={isChecked} onChange={(e) => {
-                        const checked = e.target.checked;
-                        setFormData(prev => {
-                          let newFaces = prev.ideal_faces.filter(f => f.toLowerCase() !== face.toLowerCase() && !(face === 'Oval' && f.toLowerCase() === 'ovale') && !(face === 'Coeur' && f.toLowerCase() === 'coeur'));
-                          if (checked) newFaces.push(face);
-                          return { ...prev, ideal_faces: newFaces };
-                        });
-                      }} style={{ accentColor: '#7c5cfc', width: '16px', height: '16px' }} />
-                      {face}
-                    </label>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
 
           
 
