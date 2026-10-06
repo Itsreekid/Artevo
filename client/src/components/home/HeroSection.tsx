@@ -21,7 +21,16 @@ function StarDoodle() {
   );
 }
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  settings?: any;
+}
+
+export default function HeroSection({ settings = {} }: HeroSectionProps) {
+  const p = settings.product;
+  const imgUrl = p?.image_url || '/hero-artevo.png';
+  const productUrl = p ? `/shop/${p.id}` : '/shop';
+  const dropLabel = settings.drop_label || 'DROP 001';
+
   return (
     <section className={styles.hero} aria-label="ARTEVO Hero">
       <div className={styles.inner}>
@@ -29,7 +38,7 @@ export default function HeroSection() {
         <div className={styles.content}>
           <div className={styles.badge}>
             <span className={styles.badgeDot} aria-hidden="true" />
-            ✦ DROP 001
+            ✦ {dropLabel}
           </div>
 
           <h1 className={`${styles.headline} artevo-display`}>
@@ -50,7 +59,7 @@ export default function HeroSection() {
           </p>
 
           <div className={styles.actions}>
-            <Link href="/shop" className={`${styles.primaryCta} btn-cobalt`} id="hero-shop-cta">
+            <Link href={productUrl} className={`${styles.primaryCta} btn-cobalt`} id="hero-shop-cta">
               <span>SHOP THE FIRST DROP</span>
               <ArrowRight size={18} className={styles.ctaArrow} />
             </Link>
@@ -69,8 +78,8 @@ export default function HeroSection() {
         <div className={styles.visual}>
           <div className={styles.imageWrap}>
             <Image
-              src="/hero-artevo.png"
-              alt="ARTEVO Wall Rack in a real room"
+              src={imgUrl}
+              alt={p?.title || "ARTEVO Wall Rack in a real room"}
               fill
               priority
               fetchPriority="high"
@@ -80,8 +89,8 @@ export default function HeroSection() {
           </div>
 
           <div className={styles.productLabel}>
-            <p className={styles.labelEyebrow}>✦ DROP 001</p>
-            <p className={styles.labelTitle}>ARTEVO Wall Rack</p>
+            <p className={styles.labelEyebrow}>✦ {dropLabel}</p>
+            <p className={styles.labelTitle}>{p?.title || 'ARTEVO Wall Rack'}</p>
             <p className={styles.labelSub}>Original Edition</p>
           </div>
         </div>

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import HeroSection from '@/components/home/HeroSection';
 import styles from './home.module.css';
+import { sql } from '@/lib/db';
 
 export const metadata: Metadata = {
   title:       'ARTEVO — Make Space for Your Vibe',
@@ -14,10 +15,44 @@ export const metadata: Metadata = {
   },
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  let settings: any = {
+    drop_label: 'DROP 001',
+    headline: 'THE WALL RACK.',
+    subtitle: 'A little thing.\\nA completely different wall.',
+    description: 'Made from natural wood and designed to turn everyday storage into part of the room.',
+    product: null
+  };
+
+  try {
+    const rows = await sql.unsafe(`
+      SELECT 
+        h.*,
+        row_to_json(p.*) as product
+      FROM homepage_settings h
+      LEFT JOIN products p ON p.id = h.featured_product_id
+      WHERE h.id = 1
+    `);
+    
+    if (rows && rows.length > 0) {
+      settings = rows[0];
+      if (!settings.product) {
+        const fallback = await sql.unsafe(`SELECT * FROM products WHERE is_active = true ORDER BY created_at DESC LIMIT 1`);
+        if (fallback.length > 0) settings.product = fallback[0];
+      }
+    }
+  } catch (e) {
+    console.error('Failed to load homepage settings', e);
+  }
+
+  const p = settings.product;
+  const priceDisplay = p ? `${(p.final_price ?? p.price).toLocaleString('fr-TN', { minimumFractionDigits: 3 })} TND` : '95.000 TND';
+  const imgUrl = p?.image_url || '/hero-artevo.png';
+  const productUrl = p ? `/shop/${p.id}` : '/shop';
+
   return (
     <>
-      <HeroSection />
+      <HeroSection settings={settings} />
 
       {/* ─── SHOP THE VIBE ─── */}
       <section className={styles.section} aria-labelledby="shop-vibe">
@@ -54,21 +89,20 @@ export default function HomePage() {
       {/* ─── DROP 001 SPOTLIGHT ─── */}
       <section className={styles.spotlight}>
         <div className={styles.spotlightImgWrap}>
-          <Image src="/hero-artevo.png" alt="ARTEVO Wall Rack close up" fill className={styles.heroImg} style={{objectFit: 'cover'}} />
+          <Image src={imgUrl} alt={settings.headline || 'ARTEVO'} fill className={styles.heroImg} style={{objectFit: 'cover'}} />
         </div>
         <div className={styles.spotlightContent}>
-          <span className={styles.spotlightDrop}>DROP 001</span>
-          <h2 className={`${styles.spotlightTitle} artevo-display`}>THE WALL RACK.</h2>
-          <p className={styles.spotlightQuote}>
-            A little thing.<br/>
-            A completely different wall.
+          <span className={styles.spotlightDrop}>{settings.drop_label || 'DROP 001'}</span>
+          <h2 className={`${styles.spotlightTitle} artevo-display`}>{settings.headline || 'THE WALL RACK.'}</h2>
+          <p className={styles.spotlightQuote} style={{ whiteSpace: 'pre-line' }}>
+            {settings.subtitle || 'A little thing.\\nA completely different wall.'}
           </p>
           <p className={styles.spotlightDesc}>
-            Made from natural wood and designed to turn everyday storage into part of the room.
+            {settings.description || 'Made from natural wood and designed to turn everyday storage into part of the room.'}
           </p>
-          <p className={styles.spotlightPrice}>95.00 TND</p>
-          <Link href="/shop/1" className="btn-cobalt" style={{display: 'inline-flex', padding: '16px 36px', borderRadius: '50px', color: '#fff', background: '#0057D9', textDecoration: 'none', fontWeight: 700, gap: '8px', alignItems: 'center'}}>
-            SHOP DROP 001 <ArrowRight size={16} />
+          <p className={styles.spotlightPrice}>{priceDisplay}</p>
+          <Link href={productUrl} className="btn-cobalt" style={{display: 'inline-flex', padding: '16px 36px', borderRadius: '50px', color: '#fff', background: '#0057D9', textDecoration: 'none', fontWeight: 700, gap: '8px', alignItems: 'center'}}>
+            SHOP {settings.drop_label || 'DROP 001'} <ArrowRight size={16} />
           </Link>
         </div>
       </section>
