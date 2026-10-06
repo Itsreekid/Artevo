@@ -31,7 +31,11 @@ export async function PUT(request: Request) {
       hero_cta_label,
       space_title,
       space_subtitle,
-      space_items
+      space_items,
+      spotlight_image_url,
+      vibe_title,
+      vibe_subtitle,
+      vibe_items
     } = body;
 
     const rows = await sql.unsafe(`
@@ -51,6 +55,10 @@ export async function PUT(request: Request) {
         space_title = $12,
         space_subtitle = $13,
         space_items = $14,
+        spotlight_image_url = $15,
+        vibe_title = $16,
+        vibe_subtitle = $17,
+        vibe_items = $18,
         updated_at = now()
       WHERE id = 1
       RETURNING *
@@ -68,7 +76,11 @@ export async function PUT(request: Request) {
       hero_cta_label,
       space_title,
       space_subtitle,
-      space_items ? JSON.stringify(space_items) : null
+      space_items ? JSON.stringify(space_items) : null,
+      spotlight_image_url || null,
+      vibe_title,
+      vibe_subtitle,
+      vibe_items ? JSON.stringify(vibe_items) : null
     ]);
 
     return NextResponse.json(rows[0]);
