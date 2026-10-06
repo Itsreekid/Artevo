@@ -15,8 +15,11 @@ type UploadFolder = 'products' | 'gallery' | 'colors';
 export async function uploadImageToR2(
   file: File,
   folder: UploadFolder = 'products',
+  requireSquare: boolean = true
 ): Promise<string> {
-  await validateSquareImage(file);
+  if (requireSquare) {
+    await validateSquareImage(file);
+  }
 
   const fileName = `${Date.now()}_${crypto.randomUUID()}.${getExtension(file)}`;
 

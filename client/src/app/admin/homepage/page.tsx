@@ -154,12 +154,13 @@ export default function HomepageSettingsPage() {
           </div>
 
           <div style={{ marginBottom: '16px' }}>
-            <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Image Hero (Optionnelle)</label>
+            <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Image Hero</label>
             <ImageUpload
               value={settings.hero_image_url}
               onChange={(url) => setSettings({ ...settings, hero_image_url: url })}
               onUploading={() => {}}
               folder="gallery"
+              requireSquare={false}
             />
           </div>
         </div>
@@ -231,7 +232,7 @@ export default function HomepageSettingsPage() {
                     <input type="text" value={item.mood} onChange={(e) => handleSpaceItemChange(i, 'mood', e.target.value)} style={inputStyle} />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Produit Lié (Optionnel)</label>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Produit Lié</label>
                     <select value={item.product_id} onChange={(e) => handleSpaceItemChange(i, 'product_id', e.target.value)} style={inputStyle}>
                       <option value="">-- Aucun lien --</option>
                       {products.map(p => (
@@ -248,6 +249,7 @@ export default function HomepageSettingsPage() {
                     onChange={(url) => handleSpaceItemChange(i, 'image_url', url)}
                     onUploading={() => {}}
                     folder="gallery"
+                    requireSquare={false}
                   />
                 </div>
               </div>
