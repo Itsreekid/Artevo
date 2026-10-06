@@ -169,8 +169,8 @@
 /* ─── 3. SEE IT IN YOUR SPACE ─────────────────────────────── */
 .spaceGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
 }
 
 .spaceCard {
@@ -448,7 +448,7 @@
     padding: 60px 16px;
   }
   
-  .vibeGrid, .philosophyGrid, .comingGrid {
+  .vibeGrid, .philosophyGrid, .comingGrid, .spaceGrid {
     grid-template-columns: 1fr;
     gap: 16px;
   }
