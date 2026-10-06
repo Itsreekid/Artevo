@@ -108,11 +108,11 @@ export default function AdminShell({ role, children }: Props) {
         {/* Nav links */}
         <nav style={{ flex: 1, padding: '16px 12px', display: 'flex', flexDirection: 'column', gap: '4px', overflowY: 'auto' }}>
           {isAdmin && <NavLink href="/admin" icon={LayoutDashboard} exact>Dashboard</NavLink>}
+          {isAdmin && <NavLink href="/admin/homepage" icon={Home}>Homepage</NavLink>}
           <NavLink href="/admin/orders" icon={ShoppingCart}>Orders</NavLink>
           <NavLink href="/admin/preparation" icon={Package}>Preparation</NavLink>
           {isAdmin && <NavLink href="/admin/products" icon={Package}>Products</NavLink>}
           {isAdmin && <NavLink href="/admin/categories" icon={Tag}>Categories</NavLink>}
-          {isAdmin && <NavLink href="/admin/homepage" icon={Home}>Homepage</NavLink>}
           {isAdmin && <NavLink href="/admin/employees" icon={Users}>Team</NavLink>}
           {isAdmin && <NavLink href="/admin/catalog-ad" icon={Megaphone}>Catalog Ad</NavLink>}
           {isAdmin && <NavLink href="/admin/trending" icon={TrendingUp}>Trending</NavLink>}
