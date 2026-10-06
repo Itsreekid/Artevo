@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Loader2, Save, Home, Image as ImageIcon } from 'lucide-react';
+import { Loader2, Save, Home, Image as ImageIcon, ChevronDown, ChevronUp, Tag, Star } from 'lucide-react';
 import ImageUpload from '@/components/admin/ImageUpload';
 import type { Product } from '@/types';
 
@@ -10,6 +10,11 @@ export default function HomepageSettingsPage() {
   const [saving, setSaving] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
+  const [openSections, setOpenSections] = useState({ hero: false, spotlight: false, space: false, vibe: false });
+
+  const toggleSection = (section: keyof typeof openSections) => {
+    setOpenSections(prev => ({ ...prev, [section]: !prev[section] }));
+  };
   
   const [settings, setSettings] = useState<any>({
     featured_product_id: '',
@@ -62,7 +67,7 @@ export default function HomepageSettingsPage() {
         vibe_items: Array.isArray(parsedVibeItems) && parsedVibeItems.length ? parsedVibeItems : prev.vibe_items
       }));
       setProducts(Array.isArray(productsData.data) ? productsData.data.filter((p: Product) => p.is_active) : []);
-      setCategories(Array.isArray(categoriesData) ? categoriesData : []);
+      setCategories(Array.isArray(categoriesData?.data) ? categoriesData.data : (Array.isArray(categoriesData) ? categoriesData : []));
       setLoading(false);
     }).catch(err => {
       console.error(err);
@@ -167,11 +172,18 @@ export default function HomepageSettingsPage() {
         
         {/* HERO SECTION */}
         <div style={{ background: '#fff', padding: '24px', borderRadius: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-          <h2 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Home size={20} color="#0057D9" /> Section Hero (Haut de page)
-          </h2>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }} onClick={() => toggleSection('hero')}>
+            <h2 style={{ fontSize: '18px', fontWeight: 700, margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Home size={20} color="#0057D9" /> Section Hero (Haut de page)
+            </h2>
+            <button style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+              {openSections.hero ? <ChevronUp size={20} color="#6B6B6B" /> : <ChevronDown size={20} color="#6B6B6B" />}
+            </button>
+          </div>
           
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+          {openSections.hero && (
+            <div style={{ marginTop: '20px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
             <div>
               <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Texte Ligne 1</label>
               <input type="text" name="hero_line1" value={settings.hero_line1} onChange={handleChange} style={inputStyle} />
@@ -202,121 +214,24 @@ export default function HomepageSettingsPage() {
               requireSquare={false}
             />
           </div>
-        </div>
-
-        {/* SPOTLIGHT / DROP INFO */}
-        <div style={{ background: '#fff', padding: '24px', borderRadius: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-          <h2 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '20px' }}>Produit Mis en Avant (Drop / Spotlight)</h2>
-          
-          <div style={{ marginBottom: '16px' }}>
-            <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Produit Sélectionné</label>
-            <select name="featured_product_id" value={settings.featured_product_id || ''} onChange={handleChange} style={inputStyle}>
-              <option value="">-- Sélectionner un produit (Auto-fallback au dernier) --</option>
-              {products.map(p => (
-                <option key={p.id} value={p.id}>{p.title}</option>
-              ))}
-            </select>
-          </div>
-
-          <div style={{ marginBottom: '16px' }}>
-            <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Image Spécifique (Optionnelle)</label>
-            <ImageUpload
-              value={settings.spotlight_image_url}
-              onChange={(url) => setSettings({ ...settings, spotlight_image_url: url })}
-              onUploading={() => {}}
-              folder="gallery"
-              requireSquare={false}
-            />
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
-            <div>
-              <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Label Drop</label>
-              <input type="text" name="drop_label" value={settings.drop_label} onChange={handleChange} style={inputStyle} />
             </div>
-            <div>
-              <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Titre principal</label>
-              <input type="text" name="headline" value={settings.headline} onChange={handleChange} style={inputStyle} />
-            </div>
-          </div>
-          
-          <div style={{ marginBottom: '16px' }}>
-            <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Sous-titre (\n pour retour à la ligne)</label>
-            <textarea name="subtitle" value={settings.subtitle} onChange={handleChange} style={{...inputStyle, minHeight: '80px'}} />
-          </div>
-          
-          <div style={{ marginBottom: '16px' }}>
-            <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Description</label>
-            <textarea name="description" value={settings.description} onChange={handleChange} style={{...inputStyle, minHeight: '80px'}} />
-          </div>
-        </div>
-
-        {/* SEE IT IN YOUR SPACE */}
-        <div style={{ background: '#fff', padding: '24px', borderRadius: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-          <h2 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <ImageIcon size={20} color="#0057D9" /> Section "See it in your space"
-          </h2>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
-            <div>
-              <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Titre Section</label>
-              <input type="text" name="space_title" value={settings.space_title} onChange={handleChange} style={inputStyle} />
-            </div>
-            <div>
-              <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Sous-titre (\n pour retour à la ligne)</label>
-              <textarea name="space_subtitle" value={settings.space_subtitle} onChange={handleChange} style={{...inputStyle, minHeight: '44px'}} />
-            </div>
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {settings.space_items.map((item: any, i: number) => (
-              <div key={i} style={{ padding: '16px', border: '1px solid #E5E7EB', borderRadius: '8px', display: 'grid', gap: '12px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <h4 style={{ margin: 0, fontWeight: 700 }}>Card {i + 1}</h4>
-                  <button onClick={() => removeSpaceItem(i)} style={{ background: 'none', border: 'none', color: '#EF4444', cursor: 'pointer', fontSize: '12px', fontWeight: 600 }}>Supprimer</button>
-                </div>
-                
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '12px' }}>
-                  <div>
-                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Mood / Label</label>
-                    <input type="text" value={item.mood} onChange={(e) => handleSpaceItemChange(i, 'mood', e.target.value)} style={inputStyle} />
-                  </div>
-                  <div>
-                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Produit Lié</label>
-                    <select value={item.product_id} onChange={(e) => handleSpaceItemChange(i, 'product_id', e.target.value)} style={inputStyle}>
-                      <option value="">-- Aucun lien --</option>
-                      {products.map(p => (
-                        <option key={p.id} value={p.id}>{p.title}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Image Spécifique (Laisser vide pour utiliser l'image du produit)</label>
-                  <ImageUpload
-                    value={item.image_url}
-                    onChange={(url) => handleSpaceItemChange(i, 'image_url', url)}
-                    onUploading={() => {}}
-                    folder="gallery"
-                    requireSquare={false}
-                  />
-                </div>
-              </div>
-            ))}
-            <button onClick={addSpaceItem} style={{ padding: '12px', background: '#F3F4F6', border: '1px dashed #D1D5DB', borderRadius: '8px', fontWeight: 600, cursor: 'pointer' }}>
-              + Ajouter une Card
-            </button>
-          </div>
+          )}
         </div>
 
         {/* SHOP THE VIBE */}
         <div style={{ background: '#fff', padding: '24px', borderRadius: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-          <h2 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <ImageIcon size={20} color="#0057D9" /> Section "Shop the Vibe"
-          </h2>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }} onClick={() => toggleSection('vibe')}>
+            <h2 style={{ fontSize: '18px', fontWeight: 700, margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Tag size={20} color="#0057D9" /> Section "Shop the Vibe"
+            </h2>
+            <button style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+              {openSections.vibe ? <ChevronUp size={20} color="#6B6B6B" /> : <ChevronDown size={20} color="#6B6B6B" />}
+            </button>
+          </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
+          {openSections.vibe && (
+            <div style={{ marginTop: '20px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
             <div>
               <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Titre Section</label>
               <input type="text" name="vibe_title" value={settings.vibe_title} onChange={handleChange} style={inputStyle} />
@@ -371,6 +286,134 @@ export default function HomepageSettingsPage() {
               + Ajouter une Catégorie
             </button>
           </div>
+            </div>
+          )}
+        </div>
+
+        {/* SPOTLIGHT / DROP INFO */}
+        <div style={{ background: '#fff', padding: '24px', borderRadius: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }} onClick={() => toggleSection('spotlight')}>
+            <h2 style={{ fontSize: '18px', fontWeight: 700, margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Star size={20} color="#0057D9" /> Produit Mis en Avant (Drop / Spotlight)
+            </h2>
+            <button style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+              {openSections.spotlight ? <ChevronUp size={20} color="#6B6B6B" /> : <ChevronDown size={20} color="#6B6B6B" />}
+            </button>
+          </div>
+          
+          {openSections.spotlight && (
+            <div style={{ marginTop: '20px' }}>
+              <div style={{ marginBottom: '16px' }}>
+            <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Produit Sélectionné</label>
+            <select name="featured_product_id" value={settings.featured_product_id || ''} onChange={handleChange} style={inputStyle}>
+              <option value="">-- Sélectionner un produit (Auto-fallback au dernier) --</option>
+              {products.map(p => (
+                <option key={p.id} value={p.id}>{p.title}</option>
+              ))}
+            </select>
+          </div>
+
+          <div style={{ marginBottom: '16px' }}>
+            <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Image Spécifique (Optionnelle)</label>
+            <ImageUpload
+              value={settings.spotlight_image_url}
+              onChange={(url) => setSettings({ ...settings, spotlight_image_url: url })}
+              onUploading={() => {}}
+              folder="gallery"
+              requireSquare={false}
+            />
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+            <div>
+              <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Label Drop</label>
+              <input type="text" name="drop_label" value={settings.drop_label} onChange={handleChange} style={inputStyle} />
+            </div>
+            <div>
+              <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Titre principal</label>
+              <input type="text" name="headline" value={settings.headline} onChange={handleChange} style={inputStyle} />
+            </div>
+          </div>
+          
+          <div style={{ marginBottom: '16px' }}>
+            <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Sous-titre (\n pour retour à la ligne)</label>
+            <textarea name="subtitle" value={settings.subtitle} onChange={handleChange} style={{...inputStyle, minHeight: '80px'}} />
+          </div>
+          
+          <div style={{ marginBottom: '16px' }}>
+            <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Description</label>
+            <textarea name="description" value={settings.description} onChange={handleChange} style={{...inputStyle, minHeight: '80px'}} />
+          </div>
+            </div>
+          )}
+        </div>
+
+        {/* SEE IT IN YOUR SPACE */}
+        <div style={{ background: '#fff', padding: '24px', borderRadius: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }} onClick={() => toggleSection('space')}>
+            <h2 style={{ fontSize: '18px', fontWeight: 700, margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <ImageIcon size={20} color="#0057D9" /> Section "See it in your space"
+            </h2>
+            <button style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+              {openSections.space ? <ChevronUp size={20} color="#6B6B6B" /> : <ChevronDown size={20} color="#6B6B6B" />}
+            </button>
+          </div>
+
+          {openSections.space && (
+            <div style={{ marginTop: '20px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
+            <div>
+              <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Titre Section</label>
+              <input type="text" name="space_title" value={settings.space_title} onChange={handleChange} style={inputStyle} />
+            </div>
+            <div>
+              <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Sous-titre (\n pour retour à la ligne)</label>
+              <textarea name="space_subtitle" value={settings.space_subtitle} onChange={handleChange} style={{...inputStyle, minHeight: '44px'}} />
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {settings.space_items.map((item: any, i: number) => (
+              <div key={i} style={{ padding: '16px', border: '1px solid #E5E7EB', borderRadius: '8px', display: 'grid', gap: '12px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <h4 style={{ margin: 0, fontWeight: 700 }}>Card {i + 1}</h4>
+                  <button onClick={() => removeSpaceItem(i)} style={{ background: 'none', border: 'none', color: '#EF4444', cursor: 'pointer', fontSize: '12px', fontWeight: 600 }}>Supprimer</button>
+                </div>
+                
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '12px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Mood / Label</label>
+                    <input type="text" value={item.mood} onChange={(e) => handleSpaceItemChange(i, 'mood', e.target.value)} style={inputStyle} />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Produit Lié</label>
+                    <select value={item.product_id} onChange={(e) => handleSpaceItemChange(i, 'product_id', e.target.value)} style={inputStyle}>
+                      <option value="">-- Aucun lien --</option>
+                      {products.map(p => (
+                        <option key={p.id} value={p.id}>{p.title}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Image Spécifique (Laisser vide pour utiliser l'image du produit)</label>
+                  <ImageUpload
+                    value={item.image_url}
+                    onChange={(url) => handleSpaceItemChange(i, 'image_url', url)}
+                    onUploading={() => {}}
+                    folder="gallery"
+                    requireSquare={false}
+                  />
+                </div>
+              </div>
+            ))}
+            <button onClick={addSpaceItem} style={{ padding: '12px', background: '#F3F4F6', border: '1px dashed #D1D5DB', borderRadius: '8px', fontWeight: 600, cursor: 'pointer' }}>
+              + Ajouter une Card
+            </button>
+          </div>
+            </div>
+          )}
         </div>
 
       </div>
