@@ -3,26 +3,26 @@
 import { useState } from 'react';
 import styles from '@/app/home.module.css';
 
-export default function NewsletterForm() {
-  const [email, setEmail] = useState('');
+export default function WhatsAppForm() {
+  const [phone, setPhone] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
+    if (!phone) return;
 
     setStatus('loading');
     try {
-      const res = await fetch('/api/newsletter', {
+      const res = await fetch('/api/whatsapp-subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ phone }),
       });
 
       if (!res.ok) throw new Error('Subscription failed');
       
       setStatus('success');
-      setEmail('');
+      setPhone('');
     } catch (error) {
       console.error(error);
       setStatus('error');
@@ -38,11 +38,11 @@ export default function NewsletterForm() {
       ) : (
         <form className={styles.emailForm} onSubmit={handleSubmit}>
           <input 
-            type="email" 
-            placeholder="YOUR EMAIL" 
+            type="tel" 
+            placeholder="YOUR WHATSAPP NUMBER" 
             className={styles.emailInput} 
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
             required 
             disabled={status === 'loading'}
           />

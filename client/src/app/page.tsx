@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import HeroSection from '@/components/home/HeroSection';
-import NewsletterForm from '@/components/home/NewsletterForm';
+import WhatsAppForm from '@/components/home/WhatsAppForm';
 import styles from './home.module.css';
 import { getHomepageSettings, SpaceItemResolved } from '@/lib/homepage-settings';
 
@@ -167,11 +167,11 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ─── EMAIL SIGNUP ─── */}
+      {/* ─── WHATSAPP SIGNUP ─── */}
       <section className={styles.emailSection}>
         <h2 className={styles.emailTitle}>DON&apos;T MISS THE NEXT DROP.</h2>
-        <p className={styles.emailSub}>New pieces. Fresh ideas. Good walls.</p>
-        <NewsletterForm />
+        <p className={styles.emailSub}>Get notified via WhatsApp. New pieces. Fresh ideas. Good walls.</p>
+        <WhatsAppForm />
       </section>
     </>
   );
