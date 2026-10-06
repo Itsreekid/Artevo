@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import HeroSection from '@/components/home/HeroSection';
 import styles from './home.module.css';
-import { sql } from '@/lib/db';
+import { getHomepageSettings, SpaceItemResolved } from '@/lib/homepage-settings';
 
 export const metadata: Metadata = {
   title:       'ARTEVO — Make Space for Your Vibe',
@@ -21,26 +21,12 @@ export default async function HomePage() {
     headline: 'THE WALL RACK.',
     subtitle: 'A little thing.\\nA completely different wall.',
     description: 'Made from natural wood and designed to turn everyday storage into part of the room.',
-    product: null
+    product: null,
+    space_items_resolved: []
   };
 
   try {
-    const rows = await sql.unsafe(`
-      SELECT 
-        h.*,
-        row_to_json(p.*) as product
-      FROM homepage_settings h
-      LEFT JOIN products p ON p.id = h.featured_product_id
-      WHERE h.id = 1
-    `);
-    
-    if (rows && rows.length > 0) {
-      settings = rows[0];
-      if (!settings.product) {
-        const fallback = await sql.unsafe(`SELECT * FROM products WHERE is_active = true ORDER BY created_at DESC LIMIT 1`);
-        if (fallback.length > 0) settings.product = fallback[0];
-      }
-    }
+    settings = await getHomepageSettings();
   } catch (e) {
     console.error('Failed to load homepage settings', e);
   }
@@ -110,18 +96,24 @@ export default async function HomePage() {
       {/* ─── SEE IT IN YOUR SPACE ─── */}
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>See it in your space.</h2>
-          <p className={styles.sectionSub}>
-            Different rooms. Same idea.<br/>Make the space feel like yours.
+          <h2 className={styles.sectionTitle}>{settings.space_title || 'See it in your space.'}</h2>
+          <p className={styles.sectionSub} style={{ whiteSpace: 'pre-line' }}>
+            {settings.space_subtitle || 'Different rooms. Same idea.\nMake the space feel like yours.'}
           </p>
         </div>
         <div className={styles.spaceGrid}>
-          {['MINIMAL', 'COZY', 'CREATIVE', 'EVERYDAY'].map(mood => (
-            <div key={mood} className={styles.spaceCard}>
-              <Image src="/hero-artevo.png" alt={mood} fill className={styles.spaceCardImg} style={{objectFit: 'cover', opacity: 0.8}} />
-              <div className={styles.spaceLabel}>{mood}</div>
-            </div>
-          ))}
+          {settings.space_items_resolved?.map((item: SpaceItemResolved, i: number) => {
+            const image = item.image_url || item.product?.image_url || '/hero-artevo.png';
+            const linkUrl = item.product ? `/shop/${item.product.id}` : '/shop';
+            return (
+              <Link key={i} href={linkUrl} style={{ textDecoration: 'none' }}>
+                <div className={styles.spaceCard}>
+                  <Image src={image} alt={item.mood} fill className={styles.spaceCardImg} style={{objectFit: 'cover', opacity: 0.8}} />
+                  <div className={styles.spaceLabel}>{item.mood}</div>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </section>
 

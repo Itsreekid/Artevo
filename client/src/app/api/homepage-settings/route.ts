@@ -1,47 +1,12 @@
 import { NextResponse } from 'next/server';
 import { sql } from '@/lib/db';
+import { getHomepageSettings } from '@/lib/homepage-settings';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    // Ensure table exists
-    await sql.unsafe(`
-      CREATE TABLE IF NOT EXISTS homepage_settings (
-        id INTEGER PRIMARY KEY DEFAULT 1,
-        featured_product_id UUID REFERENCES products(id) ON DELETE SET NULL,
-        drop_label TEXT DEFAULT 'DROP 001',
-        headline TEXT DEFAULT 'THE WALL RACK.',
-        subtitle TEXT DEFAULT 'A little thing.\\nA completely different wall.',
-        description TEXT DEFAULT 'Made from natural wood and designed to turn everyday storage into part of the room.',
-        enabled BOOLEAN DEFAULT true
-      );
-    `);
-    
-    // Ensure default row exists
-    await sql.unsafe(`INSERT INTO homepage_settings (id) VALUES (1) ON CONFLICT (id) DO NOTHING;`);
-
-    // Fetch settings with product data
-    const rows = await sql.unsafe(`
-      SELECT 
-        h.*,
-        row_to_json(p.*) as product
-      FROM homepage_settings h
-      LEFT JOIN products p ON p.id = h.featured_product_id
-      WHERE h.id = 1
-    `);
-
-    // If no product is selected, try to get the newest active product as fallback
-    let settings = rows[0];
-    if (!settings.product) {
-      const newestProductRows = await sql.unsafe(`
-        SELECT * FROM products WHERE is_active = true ORDER BY created_at DESC LIMIT 1
-      `);
-      if (newestProductRows.length > 0) {
-        settings.product = newestProductRows[0];
-      }
-    }
-
+    const settings = await getHomepageSettings();
     return NextResponse.json(settings);
   } catch (err: any) {
     console.error('[API /homepage-settings] Error:', err.message);
@@ -58,7 +23,15 @@ export async function PUT(request: Request) {
       headline,
       subtitle,
       description,
-      enabled
+      enabled,
+      hero_image_url,
+      hero_line1,
+      hero_line2,
+      hero_subtitle,
+      hero_cta_label,
+      space_title,
+      space_subtitle,
+      space_items
     } = body;
 
     const rows = await sql.unsafe(`
@@ -69,7 +42,16 @@ export async function PUT(request: Request) {
         headline = $3,
         subtitle = $4,
         description = $5,
-        enabled = $6
+        enabled = $6,
+        hero_image_url = $7,
+        hero_line1 = $8,
+        hero_line2 = $9,
+        hero_subtitle = $10,
+        hero_cta_label = $11,
+        space_title = $12,
+        space_subtitle = $13,
+        space_items = $14,
+        updated_at = now()
       WHERE id = 1
       RETURNING *
     `, [
@@ -78,7 +60,15 @@ export async function PUT(request: Request) {
       headline,
       subtitle,
       description,
-      enabled
+      enabled,
+      hero_image_url,
+      hero_line1,
+      hero_line2,
+      hero_subtitle,
+      hero_cta_label,
+      space_title,
+      space_subtitle,
+      space_items ? JSON.stringify(space_items) : null
     ]);
 
     return NextResponse.json(rows[0]);

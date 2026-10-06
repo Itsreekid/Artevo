@@ -43,11 +43,11 @@ export default function HeroSection({ settings = {} }: HeroSectionProps) {
 
           <h1 className={`${styles.headline} artevo-display`}>
             <div className={styles.headlineRow}>
-              <span className={styles.textInk}>Your Wall.</span>
+              <span className={styles.textInk}>{settings.hero_line1 || 'Your Wall.'}</span>
               <div className={styles.starWrap}><StarDoodle /></div>
             </div>
             <div className={styles.headlineRow}>
-              <span className={styles.textCobalt}>Your Vibe.</span>
+              <span className={styles.textCobalt}>{settings.hero_line2 || 'Your Vibe.'}</span>
               <div className={styles.underlineWrap} aria-hidden="true">
                 <UnderlineDoodle />
               </div>
@@ -55,12 +55,12 @@ export default function HeroSection({ settings = {} }: HeroSectionProps) {
           </h1>
 
           <p className={styles.sub}>
-            A little piece that makes your space feel more like you.
+            {settings.hero_subtitle || 'A little piece that makes your space feel more like you.'}
           </p>
 
           <div className={styles.actions}>
             <Link href={productUrl} className={`${styles.primaryCta} btn-cobalt`} id="hero-shop-cta">
-              <span>SHOP THE FIRST DROP</span>
+              <span>{settings.hero_cta_label || 'SHOP THE FIRST DROP'}</span>
               <ArrowRight size={18} className={styles.ctaArrow} />
             </Link>
           </div>
@@ -78,13 +78,14 @@ export default function HeroSection({ settings = {} }: HeroSectionProps) {
         <div className={styles.visual}>
           <div className={styles.imageWrap}>
             <Image
-              src={imgUrl}
+              src={settings.hero_image_url || imgUrl}
               alt={p?.title || "ARTEVO Wall Rack in a real room"}
               fill
               priority
               fetchPriority="high"
               sizes="(max-width: 900px) 100vw, 55vw"
               className={styles.heroImg}
+              style={{ objectFit: 'cover' }}
             />
           </div>
 

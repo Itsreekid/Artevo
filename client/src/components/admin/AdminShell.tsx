@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard, ShoppingCart, Package,
-  LogOut, Tag, Menu, X, Users, Megaphone, TrendingUp,
+  LogOut, Tag, Menu, X, Users, Megaphone, TrendingUp, Home
 } from 'lucide-react';
 import { logoutAction } from '@/app/admin/actions';
 import { useOrderNotification } from '@/hooks/useOrderNotification';
@@ -112,6 +112,7 @@ export default function AdminShell({ role, children }: Props) {
           <NavLink href="/admin/preparation" icon={Package}>Preparation</NavLink>
           {isAdmin && <NavLink href="/admin/products" icon={Package}>Products</NavLink>}
           {isAdmin && <NavLink href="/admin/categories" icon={Tag}>Categories</NavLink>}
+          {isAdmin && <NavLink href="/admin/homepage" icon={Home}>Homepage</NavLink>}
           {isAdmin && <NavLink href="/admin/employees" icon={Users}>Team</NavLink>}
           {isAdmin && <NavLink href="/admin/catalog-ad" icon={Megaphone}>Catalog Ad</NavLink>}
           {isAdmin && <NavLink href="/admin/trending" icon={TrendingUp}>Trending</NavLink>}
