@@ -44,7 +44,7 @@ export default async function WhatsAppAdminPage() {
               </thead>
               <tbody>
                 {subscribers.map((sub: any) => (
-                  <tr key={sub.id} style={{ borderBottom: '1px solid #F0EDE8', transition: 'background 150ms' }} onMouseOver={(e) => e.currentTarget.style.background = '#F9FAFB'} onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}>
+                  <tr key={sub.id} style={{ borderBottom: '1px solid #F0EDE8', transition: 'background 150ms' }}>
                     <td style={{ padding: '16px', fontWeight: 600, color: '#1B1B1B', display: 'flex', alignItems: 'center', gap: '12px' }}>
                       <div style={{ background: '#DCFCE7', padding: '8px', borderRadius: '50%', color: '#166534' }}>
                         <MessageCircle size={16} />
