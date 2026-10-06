@@ -40,11 +40,6 @@ export default function CartItem({ item }: CartItemProps) {
         {product.categories?.name && (
           <p className={styles.category}>{product.categories.name}</p>
         )}
-        {product.gender && (
-          <p className={styles.gender}>
-            {product.gender.charAt(0).toUpperCase() + product.gender.slice(1)}
-          </p>
-        )}
         {item.selected_color && (
           <p className={styles.gender} style={{ color: 'var(--color-charcoal)' }}>
             Couleur : {item.selected_color.name}

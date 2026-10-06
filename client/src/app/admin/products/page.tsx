@@ -615,6 +615,7 @@ export default function AdminProductsPage() {
                 <th className="px-4 py-3 text-right">Prix vente</th>
                 <th className="px-4 py-3 text-right">Prix achat</th>
                 <th className="px-4 py-3 text-center">Remise</th>
+                <th className="px-4 py-3 text-center">État</th>
                 <th className="px-4 py-3 text-center">Actions</th>
               </tr>
             </thead>
@@ -650,6 +651,17 @@ export default function AdminProductsPage() {
                         ? <span className="inline-flex items-center justify-center px-2 py-1 rounded-md text-xs font-bold bg-nyvara-gold/10 text-nyvara-gold">-{Math.round(p.discount)}%</span>
                         : <span className="text-gray-400">—</span>}
                     </td>
+                    <td className="px-4 py-2 text-center">
+                      {p.is_active !== false ? (
+                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                          Actif
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                          Inactif
+                        </span>
+                      )}
+                    </td>
                     <td className="px-4 py-2">
                       <div className="flex items-center justify-center gap-2">
                         <button className="p-1.5 text-nyvara-gold hover:bg-nyvara-gold/10 rounded-md transition-colors" onClick={() => openEditModal(p)} title="Éditer">
@@ -664,7 +676,7 @@ export default function AdminProductsPage() {
                 );
               })}
               {products.length === 0 && (
-                <tr><td colSpan={7} className="px-4 py-8 text-center text-gray-500">
+                <tr><td colSpan={8} className="px-4 py-8 text-center text-gray-500">
                   {debouncedSearch ? `Aucun produit trouvé pour « ${debouncedSearch} ».` : 'Aucun produit.'}
                 </td></tr>
               )}
@@ -694,6 +706,11 @@ export default function AdminProductsPage() {
                       <span className="font-medium text-gray-900">{Number(p.final_price ?? p.price ?? 0).toFixed(3)} TND</span>
                       {p.discount != null && (
                         <span className="text-xs font-bold bg-nyvara-gold/10 text-nyvara-gold px-1.5 py-0.5 rounded">-{Math.round(p.discount)}%</span>
+                      )}
+                      {p.is_active !== false ? (
+                        <span className="text-xs font-medium bg-green-100 text-green-800 px-1.5 py-0.5 rounded">Actif</span>
+                      ) : (
+                        <span className="text-xs font-medium bg-red-100 text-red-800 px-1.5 py-0.5 rounded">Inactif</span>
                       )}
                     </div>
                   </div>

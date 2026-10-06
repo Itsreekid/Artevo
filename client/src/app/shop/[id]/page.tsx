@@ -74,9 +74,6 @@ export default async function ProductPage({ params }: Props) {
       
       // Match 3: Same Style / Vibe (+3)
       if (product.style_vibe && p.style_vibe === product.style_vibe) score += 3;
-      
-      // Match 4: Same Gender (+1)
-      if (product.gender && p.gender === product.gender) score += 1;
 
       // Match 5: Same Optical Fit (+1)
       if (product.optical_fit && p.optical_fit === product.optical_fit) score += 1;

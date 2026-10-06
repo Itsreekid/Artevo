@@ -33,7 +33,6 @@ function ShopContent() {
 
   const toSlug = (str: string) => str.toLowerCase().replace(/[\s_]+/g, '-').replace(/[^\w-]+/g, '');
 
-  const initialGender = (searchParams.get('gender') as ProductFilters['gender']) ?? 'all';
   const initialSearch = searchParams.get('search') ?? undefined;
   const initialMinPrice = searchParams.has('min_price') ? Number(searchParams.get('min_price')) : undefined;
   const initialMaxPrice = searchParams.has('max_price') ? Number(searchParams.get('max_price')) : undefined;
@@ -42,7 +41,6 @@ function ShopContent() {
   const initialFrameShape = searchParams.get('frame_shape') ?? undefined;
 
   const [filters, setFilters] = useState<ProductFilters & { page?: number; pageSize?: number }>({
-    gender: initialGender,
     search: initialSearch,
     min_price: initialMinPrice,
     max_price: initialMaxPrice,
@@ -67,9 +65,6 @@ function ShopContent() {
   const updateFilters = (newFilters: ProductFilters & { page?: number; pageSize?: number }) => {
     setFilters(newFilters);
     const params = new URLSearchParams(searchParams.toString());
-    
-    if (newFilters.gender && newFilters.gender !== 'all') params.set('gender', newFilters.gender);
-    else params.delete('gender');
     
     if (newFilters.search) params.set('search', newFilters.search);
     else params.delete('search');
@@ -105,7 +100,7 @@ function ShopContent() {
   };
 
   const handleReset = useCallback(() => {
-    updateFilters({ gender: 'all', page: 0, pageSize: 20 });
+    updateFilters({ page: 0, pageSize: 20 });
     updateSort('newest');
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams, pathname, categories, router]);
