@@ -38,12 +38,16 @@ export default function HomepageSettingsPage() {
       fetch('/api/homepage-settings').then(r => r.json()),
       fetch('/api/products').then(r => r.json())
     ]).then(([settingsData, productsData]) => {
+      const parsedSpaceItems = typeof settingsData.space_items === 'string' 
+        ? JSON.parse(settingsData.space_items) 
+        : settingsData.space_items;
+        
       setSettings((prev: any) => ({
         ...prev,
         ...settingsData,
-        space_items: settingsData.space_items?.length ? settingsData.space_items : prev.space_items
+        space_items: Array.isArray(parsedSpaceItems) && parsedSpaceItems.length ? parsedSpaceItems : prev.space_items
       }));
-      setProducts(productsData.filter((p: Product) => p.is_active));
+      setProducts(Array.isArray(productsData.data) ? productsData.data.filter((p: Product) => p.is_active) : []);
       setLoading(false);
     }).catch(err => {
       console.error(err);

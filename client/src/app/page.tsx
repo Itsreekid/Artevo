@@ -6,6 +6,8 @@ import HeroSection from '@/components/home/HeroSection';
 import styles from './home.module.css';
 import { getHomepageSettings, SpaceItemResolved } from '@/lib/homepage-settings';
 
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title:       'ARTEVO — Make Space for Your Vibe',
   description: 'The ARTEVO Wall Rack. A little piece that makes your space feel more like you. Natural wood. Easy to mount. Drop 001.',

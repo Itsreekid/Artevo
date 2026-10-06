@@ -74,10 +74,17 @@ export async function getHomepageSettings() {
     if (fallback.length > 0) settings.product = fallback[0];
   }
 
+  let rawSpaceItems = settings.space_items;
+  if (typeof rawSpaceItems === 'string') {
+    try { rawSpaceItems = JSON.parse(rawSpaceItems); } catch { rawSpaceItems = null; }
+  }
+  
   // Resolve "See it in your space" items
-  const items: SpaceItem[] = Array.isArray(settings.space_items) && settings.space_items.length
-    ? settings.space_items
+  const items: SpaceItem[] = Array.isArray(rawSpaceItems) && rawSpaceItems.length
+    ? rawSpaceItems
     : DEFAULT_SPACE_ITEMS;
+    
+  settings.space_items = items;
 
   const UUID_RE = /^[0-9a-f-]{36}$/i;
   const ids = items.map(i => i.product_id).filter((id): id is string => !!id && UUID_RE.test(id));
