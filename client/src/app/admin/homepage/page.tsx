@@ -9,9 +9,11 @@ export default function HomepageSettingsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
   
   const [settings, setSettings] = useState<any>({
     featured_product_id: '',
+    spotlight_image_url: '',
     drop_label: 'DROP 001',
     headline: 'THE WALL RACK.',
     subtitle: 'A little thing.\\nA completely different wall.',
@@ -31,23 +33,36 @@ export default function HomepageSettingsPage() {
       { mood: 'COZY', product_id: '', image_url: '' },
       { mood: 'CREATIVE', product_id: '', image_url: '' }
     ]
+    vibe_title: 'Shop the Vibe.',
+    vibe_subtitle: 'Pieces for walls, corners, shelves and everything in between.',
+    vibe_items: [
+      { label: 'WALL', category_id: '', image_url: '', is_soon: false },
+      { label: 'LIGHT', category_id: '', image_url: '', is_soon: true },
+      { label: 'DECOR', category_id: '', image_url: '', is_soon: true }
+    ]
   });
 
   useEffect(() => {
     Promise.all([
       fetch('/api/homepage-settings').then(r => r.json()),
-      fetch('/api/products').then(r => r.json())
-    ]).then(([settingsData, productsData]) => {
+      fetch('/api/products').then(r => r.json()),
+      fetch('/api/categories').then(r => r.json())
+    ]).then(([settingsData, productsData, categoriesData]) => {
       const parsedSpaceItems = typeof settingsData.space_items === 'string' 
         ? JSON.parse(settingsData.space_items) 
         : settingsData.space_items;
+      const parsedVibeItems = typeof settingsData.vibe_items === 'string'
+        ? JSON.parse(settingsData.vibe_items)
+        : settingsData.vibe_items;
         
       setSettings((prev: any) => ({
         ...prev,
         ...settingsData,
-        space_items: Array.isArray(parsedSpaceItems) && parsedSpaceItems.length ? parsedSpaceItems : prev.space_items
+        space_items: Array.isArray(parsedSpaceItems) && parsedSpaceItems.length ? parsedSpaceItems : prev.space_items,
+        vibe_items: Array.isArray(parsedVibeItems) && parsedVibeItems.length ? parsedVibeItems : prev.vibe_items
       }));
       setProducts(Array.isArray(productsData.data) ? productsData.data.filter((p: Product) => p.is_active) : []);
+      setCategories(Array.isArray(categoriesData) ? categoriesData : []);
       setLoading(false);
     }).catch(err => {
       console.error(err);
@@ -80,6 +95,26 @@ export default function HomepageSettingsPage() {
     setSettings((prev: any) => ({
       ...prev,
       space_items: prev.space_items.filter((_: any, i: number) => i !== index)
+    }));
+  };
+
+  const handleVibeItemChange = (index: number, field: string, value: any) => {
+    const newItems = [...settings.vibe_items];
+    newItems[index] = { ...newItems[index], [field]: value };
+    setSettings((prev: any) => ({ ...prev, vibe_items: newItems }));
+  };
+
+  const addVibeItem = () => {
+    setSettings((prev: any) => ({
+      ...prev,
+      vibe_items: [...prev.vibe_items, { label: 'NEW VIBE', category_id: '', image_url: '', is_soon: false }]
+    }));
+  };
+
+  const removeVibeItem = (index: number) => {
+    setSettings((prev: any) => ({
+      ...prev,
+      vibe_items: prev.vibe_items.filter((_: any, i: number) => i !== index)
     }));
   };
 
@@ -183,6 +218,17 @@ export default function HomepageSettingsPage() {
             </select>
           </div>
 
+          <div style={{ marginBottom: '16px' }}>
+            <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Image Spécifique (Optionnelle)</label>
+            <ImageUpload
+              value={settings.spotlight_image_url}
+              onChange={(url) => setSettings({ ...settings, spotlight_image_url: url })}
+              onUploading={() => {}}
+              folder="gallery"
+              requireSquare={false}
+            />
+          </div>
+
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
             <div>
               <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Label Drop</label>
@@ -260,6 +306,69 @@ export default function HomepageSettingsPage() {
             ))}
             <button onClick={addSpaceItem} style={{ padding: '12px', background: '#F3F4F6', border: '1px dashed #D1D5DB', borderRadius: '8px', fontWeight: 600, cursor: 'pointer' }}>
               + Ajouter une Card
+            </button>
+          </div>
+        </div>
+
+        {/* SHOP THE VIBE */}
+        <div style={{ background: '#fff', padding: '24px', borderRadius: '16px', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+          <h2 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <ImageIcon size={20} color="#0057D9" /> Section "Shop the Vibe"
+          </h2>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' }}>
+            <div>
+              <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Titre Section</label>
+              <input type="text" name="vibe_title" value={settings.vibe_title} onChange={handleChange} style={inputStyle} />
+            </div>
+            <div>
+              <label style={{ display: 'block', fontSize: '14px', fontWeight: 600, marginBottom: '8px' }}>Sous-titre</label>
+              <textarea name="vibe_subtitle" value={settings.vibe_subtitle} onChange={handleChange} style={{...inputStyle, minHeight: '44px'}} />
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {settings.vibe_items.map((item: any, i: number) => (
+              <div key={i} style={{ padding: '16px', border: '1px solid #E5E7EB', borderRadius: '8px', display: 'grid', gap: '12px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <h4 style={{ margin: 0, fontWeight: 700 }}>Catégorie {i + 1}</h4>
+                  <button onClick={() => removeVibeItem(i)} style={{ background: 'none', border: 'none', color: '#EF4444', cursor: 'pointer', fontSize: '12px', fontWeight: 600 }}>Supprimer</button>
+                </div>
+                
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 100px', gap: '12px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Label</label>
+                    <input type="text" value={item.label} onChange={(e) => handleVibeItemChange(i, 'label', e.target.value)} style={inputStyle} />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Catégorie Liée</label>
+                    <select value={item.category_id} onChange={(e) => handleVibeItemChange(i, 'category_id', e.target.value)} style={inputStyle}>
+                      <option value="">-- Aucune --</option>
+                      {categories.map(c => (
+                        <option key={c.id} value={c.id}>{c.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', paddingTop: '20px' }}>
+                    <input type="checkbox" checked={item.is_soon} onChange={(e) => handleVibeItemChange(i, 'is_soon', e.target.checked)} />
+                    <label style={{ fontSize: '12px', fontWeight: 600 }}>SOON</label>
+                  </div>
+                </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '4px' }}>Image Spécifique</label>
+                  <ImageUpload
+                    value={item.image_url}
+                    onChange={(url) => handleVibeItemChange(i, 'image_url', url)}
+                    onUploading={() => {}}
+                    folder="gallery"
+                    requireSquare={false}
+                  />
+                </div>
+              </div>
+            ))}
+            <button onClick={addVibeItem} style={{ padding: '12px', background: '#F3F4F6', border: '1px dashed #D1D5DB', borderRadius: '8px', fontWeight: 600, cursor: 'pointer' }}>
+              + Ajouter une Catégorie
             </button>
           </div>
         </div>

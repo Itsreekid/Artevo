@@ -23,6 +23,26 @@ export const DEFAULT_SPACE_ITEMS: SpaceItem[] = [
   { mood: 'CREATIVE', product_id: null, image_url: null },
 ];
 
+export interface VibeItem {
+  label: string;
+  category_id: string | null;
+  image_url: string | null;
+  is_soon: boolean;
+}
+
+export interface VibeItemResolved extends VibeItem {
+  category: {
+    id: string;
+    name: string;
+  } | null;
+}
+
+export const DEFAULT_VIBE_ITEMS: VibeItem[] = [
+  { label: 'WALL', category_id: null, image_url: null, is_soon: false },
+  { label: 'LIGHT', category_id: null, image_url: null, is_soon: true },
+  { label: 'DECOR', category_id: null, image_url: null, is_soon: true },
+];
+
 let schemaReady = false;
 
 /** Creates the table / new columns if missing. Safe to call many times. */
@@ -49,6 +69,10 @@ export async function ensureHomepageSchema() {
       ADD COLUMN IF NOT EXISTS space_title     TEXT DEFAULT 'See it in your space.',
       ADD COLUMN IF NOT EXISTS space_subtitle  TEXT DEFAULT 'Different rooms. Same idea.\\nMake the space feel like yours.',
       ADD COLUMN IF NOT EXISTS space_items     JSONB,
+      ADD COLUMN IF NOT EXISTS spotlight_image_url TEXT,
+      ADD COLUMN IF NOT EXISTS vibe_title      TEXT DEFAULT 'Shop the Vibe.',
+      ADD COLUMN IF NOT EXISTS vibe_subtitle   TEXT DEFAULT 'Pieces for walls, corners, shelves and everything in between.',
+      ADD COLUMN IF NOT EXISTS vibe_items      JSONB,
       ADD COLUMN IF NOT EXISTS updated_at      TIMESTAMPTZ DEFAULT now();
   `);
   await sql.unsafe(`INSERT INTO homepage_settings (id) VALUES (1) ON CONFLICT (id) DO NOTHING;`);
@@ -102,6 +126,31 @@ export async function getHomepageSettings() {
     ...i,
     product: i.product_id ? productMap.get(i.product_id) ?? null : null,
   })) as SpaceItemResolved[];
+
+  let rawVibeItems = settings.vibe_items;
+  if (typeof rawVibeItems === 'string') {
+    try { rawVibeItems = JSON.parse(rawVibeItems); } catch { rawVibeItems = null; }
+  }
+  
+  const vItems: VibeItem[] = Array.isArray(rawVibeItems) && rawVibeItems.length
+    ? rawVibeItems
+    : DEFAULT_VIBE_ITEMS;
+  settings.vibe_items = vItems;
+
+  const vibeCatIds = vItems.map(i => i.category_id).filter((id): id is string => !!id && UUID_RE.test(id));
+  let catMap = new Map<string, any>();
+  if (vibeCatIds.length) {
+    const cats = await sql.unsafe(
+      `SELECT id, name FROM categories WHERE id = ANY($1::uuid[])`,
+      [`{${vibeCatIds.join(',')}}`]
+    );
+    catMap = new Map(cats.map((c: any) => [c.id, c]));
+  }
+
+  settings.vibe_items_resolved = vItems.map(i => ({
+    ...i,
+    category: i.category_id ? catMap.get(i.category_id) ?? null : null,
+  })) as VibeItemResolved[];
 
   return settings;
 }

@@ -35,7 +35,7 @@ export default async function HomePage() {
 
   const p = settings.product;
   const priceDisplay = p ? `${(p.final_price ?? p.price).toLocaleString('fr-TN', { minimumFractionDigits: 3 })} TND` : '95.000 TND';
-  const imgUrl = p?.image_url || '/hero-artevo.png';
+  const imgUrl = settings.spotlight_image_url || p?.image_url || '/hero-artevo.png';
   const productUrl = p ? `/shop/${p.id}` : '/shop';
 
   return (
@@ -45,32 +45,40 @@ export default async function HomePage() {
       {/* ─── SHOP THE VIBE ─── */}
       <section className={styles.section} aria-labelledby="shop-vibe">
         <div className={styles.sectionHeader}>
-          <h2 id="shop-vibe" className={styles.sectionTitle}>Shop the Vibe.</h2>
+          <h2 id="shop-vibe" className={styles.sectionTitle}>{settings.vibe_title || 'Shop the Vibe.'}</h2>
           <p className={styles.sectionSub}>
-            Pieces for walls, corners, shelves and everything in between.
+            {settings.vibe_subtitle || 'Pieces for walls, corners, shelves and everything in between.'}
           </p>
         </div>
         
         <div className={styles.vibeGrid}>
-          <Link href="/shop" className={`${styles.vibeCard} ${styles.vibeCardLink}`}>
-            <Image src="/hero-artevo.png" alt="Wall category" fill className={styles.vibeCardImg} />
-            <div className={styles.vibeCardOverlay} />
-            <div className={styles.vibeCardContent}>
-              <span className={styles.vibeCardTitle}>WALL</span>
-            </div>
-          </Link>
-          <div className={styles.vibeCard}>
-            <div className={styles.vibeCardContent}>
-              <span className={`${styles.vibeCardTitle} ${styles.vibeCardTitleDark}`}>LIGHT</span>
-              <span className={styles.vibeCardSoon}>SOON</span>
-            </div>
-          </div>
-          <div className={styles.vibeCard}>
-            <div className={styles.vibeCardContent}>
-              <span className={`${styles.vibeCardTitle} ${styles.vibeCardTitleDark}`}>DECOR</span>
-              <span className={styles.vibeCardSoon}>SOON</span>
-            </div>
-          </div>
+          {settings.vibe_items_resolved?.map((item: any, i: number) => {
+            const hasImage = !!item.image_url;
+            const categoryUrl = item.category ? `/shop?category=${item.category.id}` : '/shop';
+            
+            if (item.is_soon || !hasImage) {
+              return (
+                <div key={i} className={styles.vibeCard}>
+                  {hasImage && <Image src={item.image_url} alt={item.label} fill className={styles.vibeCardImg} />}
+                  {hasImage && <div className={styles.vibeCardOverlay} />}
+                  <div className={styles.vibeCardContent}>
+                    <span className={`${styles.vibeCardTitle} ${!hasImage ? styles.vibeCardTitleDark : ''}`}>{item.label}</span>
+                    {item.is_soon && <span className={styles.vibeCardSoon}>SOON</span>}
+                  </div>
+                </div>
+              );
+            }
+
+            return (
+              <Link key={i} href={categoryUrl} className={`${styles.vibeCard} ${styles.vibeCardLink}`}>
+                <Image src={item.image_url} alt={item.label} fill className={styles.vibeCardImg} />
+                <div className={styles.vibeCardOverlay} />
+                <div className={styles.vibeCardContent}>
+                  <span className={styles.vibeCardTitle}>{item.label}</span>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </section>
 
@@ -155,31 +163,6 @@ export default async function HomePage() {
 
         <div className={styles.socialFooter}>
           <a href="https://www.instagram.com/artevo_tn/" target="_blank" rel="noopener noreferrer" className={styles.btnSecondary}>FOLLOW @ARTEVO →</a>
-        </div>
-      </section>
-
-      {/* ─── MORE PIECES ARE COMING ─── */}
-      <section className={styles.section}>
-        <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>More pieces are coming.</h2>
-          <p className={styles.sectionSub}>DROP 001 is only the beginning.</p>
-        </div>
-        <div className={styles.comingGrid}>
-          <div className={styles.comingCard}>
-            <span className={styles.comingDrop}>DROP 002</span>
-            <h3 className={styles.comingTitle}>LIGHT</h3>
-            <span className={styles.comingSoon}>SOON</span>
-          </div>
-          <div className={styles.comingCard}>
-            <span className={styles.comingDrop}>DROP 003</span>
-            <h3 className={styles.comingTitle}>OBJECTS</h3>
-            <span className={styles.comingSoon}>SOON</span>
-          </div>
-          <div className={styles.comingCard}>
-            <span className={styles.comingDrop}>DROP 004</span>
-            <h3 className={styles.comingTitle}>STORAGE</h3>
-            <span className={styles.comingSoon}>SOON</span>
-          </div>
         </div>
       </section>
 
