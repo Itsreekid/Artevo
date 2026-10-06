@@ -30,7 +30,7 @@ export default async function ProductPage({ params }: Props) {
   ]);
 
   const product = productRows[0] as any;
-  if (!product) notFound();
+  if (!product || product.is_active === false) notFound();
 
   // Ensure JSONB columns are parsed properly, since PostgreSQL drivers can return them as strings.
   const parseJsonbArray = (val: any) => {

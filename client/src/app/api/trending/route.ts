@@ -30,7 +30,7 @@ export async function GET() {
     const productIds = Object.keys(aggregated);
     const products = await sql`
       SELECT id, title, image_url, stock, custom_label_0
-      FROM products WHERE id = ANY(${productIds}::uuid[]) AND stock > 0`;
+      FROM products WHERE id = ANY(${productIds}::uuid[]) AND stock > 0 AND is_active IS NOT FALSE`;
 
     const ranked = (products as any[])
       .map(p => {

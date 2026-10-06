@@ -132,7 +132,7 @@ export default function AdminProductsPage() {
     const ts = Date.now();
     const searchParam = debouncedSearch ? `&search=${encodeURIComponent(debouncedSearch)}` : '';
     Promise.all([
-      fetch(`/api/products?sort=newest&page=${page}&pageSize=${pageSize}${searchParam}&_t=${ts}`, { cache: 'no-store' }).then(r => r.json()),
+      fetch(`/api/products?includeInactive=true&sort=newest&page=${page}&pageSize=${pageSize}${searchParam}&_t=${ts}`, { cache: 'no-store' }).then(r => r.json()),
       fetch(`/api/categories?_t=${ts}`, { cache: 'no-store' }).then(r => r.json()),
     ]).then(([prodsJson, catsJson]) => {
       if (prodsJson.data) setProducts(prodsJson.data as Product[]);
@@ -836,8 +836,9 @@ export default function AdminProductsPage() {
 
           <div className="flex flex-col sm:flex-row gap-6 mt-4 mb-4">
             <Toggle 
-              label="Actif (visible sur le site)"
+              label={formData.is_active ? 'Actif (visible sur le site & Meta)' : 'Masqué (caché du site & Meta)'}
               checked={formData.is_active}
+              statusColors
               onChange={(checked) => setFormData(prev => ({ ...prev, is_active: checked }))}
             />
             <Toggle 

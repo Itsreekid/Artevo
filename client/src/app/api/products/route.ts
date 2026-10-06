@@ -30,6 +30,12 @@ export async function GET(request: NextRequest) {
     const params: any[] = [];
     let paramIdx = 1;
 
+    // Hide inactive products from the public site unless the admin explicitly asks for them
+    const includeInactive = searchParams.get("includeInactive") === "true";
+    if (!includeInactive) {
+      conditions.push(`p.is_active IS NOT FALSE`);
+    }
+
     if (category_id) {
       conditions.push(`p.category_id = $${paramIdx++}`);
       params.push(category_id);
